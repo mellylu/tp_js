@@ -1,58 +1,77 @@
-// exécution des requêtes avec prisma
-// import { PrismaClient } from "@prisma/client"
-const { PrismaClient } = require("@prisma/client")
+// // exécution des requêtes avec prisma
+// // import { PrismaClient } from "@prisma/client"
+// const { PrismaClient } = require("@prisma/client")
+// const bcrypt = require("bcryptjs")
+// const jwt = require("jsonwebtoken")
+// const dotenv = require("dotenv")
 
-const prisma = new PrismaClient()
+// // get config vars
+// dotenv.config()
+// var secret = "secret" //process.env.JWT_SECRET
 
-const postUser = async () => {
-    await prisma.user
-        .create({
-            data: {
-                token: "1d5g2fg21f",
-                email: "mel@yahoo.fr",
-                firstname: "melly",
-                lastname: "lucas",
-                password: "xxxxx",
-            },
-        })
-        .then((data: any) => {
-            console.log(data)
-        })
-        .catch((err: any) => {
-            console.log(err)
-        })
-}
+// const prisma = new PrismaClient()
 
-const getIdUser = async () => {
-    await prisma.user
-        .findUnique({
-            where: {
-                id: 1,
-            },
-        })
-        .then((data: any) => {
-            console.log(data)
-        })
-        .catch((err: any) => {
-            console.log(err)
-        })
-}
+// const postUser = async (newUser: any) => {
+//     newUser.password = await bcrypt.hash(newUser.password, 10)
+//     console.log(secret)
+//     let userToken = jwt.sign(
+//         {
+//             id: newUser.id,
+//         },
+//         secret,
+//         {
+//             expiresIn: 86400,
+//         },
+//     )
+//     console.log("usertoken", userToken)
+//     await prisma.user
+//         .create({
+//             data: newUser,
+//         })
+//         .then((data: any) => {
+//             console.log(data)
+//         })
+//         .catch((err: any) => {
+//             console.log(err)
+//         })
+// }
 
-const getAllUser = async () => {
-    await prisma.user
-        .findMany()
-        .then((data: any) => {
-            console.log(data)
-        })
-        .catch((err: any) => {
-            console.log(err)
-        })
-}
+// const getIdUser = async () => {
+//     await prisma.user
+//         .findUnique({
+//             where: {
+//                 id: 1,
+//             },
+//         })
+//         .then((data: any) => {
+//             console.log(data)
+//         })
+//         .catch((err: any) => {
+//             console.log(err)
+//         })
+// }
 
-const register = async () => {}
+// const getAllUser = async () => {
+//     await prisma.user
+//         .findMany()
+//         .then((data: any) => {
+//             console.log(data)
+//         })
+//         .catch((err: any) => {
+//             console.log(err)
+//         })
+// }
 
-postUser()
-getAllUser()
+// const register = async () => {}
 
-//prisma generate
-//taper cette ligne de commande pour mettre prisma à jour
+// const newUser = {
+//     email: "mellyyttt@yahoo.fr",
+//     firstname: "melly",
+//     lastname: "lucas",
+//     password: "xxxx",
+// }
+// // postUser(newUser)
+// getAllUser()
+
+// //prisma generate
+// //taper cette ligne de commande pour mettre prisma à jour
