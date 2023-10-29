@@ -4,6 +4,8 @@ import type { NextApiRequest, NextApiResponse } from "next"
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const randomString = require("randomstring")
+const nodemailer = require("nodemailer")
+require("dotenv").config()
 
 const prisma = new PrismaClient()
 const secret = "secret"
@@ -27,7 +29,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                         })
                         .then((token: any) => {
                             if (token) {
-                                //sendEmail.sendEmail(req, res, token, req.body.email)
+                                sendEmail(req, res, token, req.body.email)
                                 res.status(200).send({
                                     success: true,
                                     message: "Email sended",
@@ -53,7 +55,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                         data: token,
                                     })
                                     .then(token => {
-                                        //sendEmail.sendEmail(req, res, token, req.body.email)
+                                        sendEmail(req, res, token, req.body.email)
                                         res.status(200).send({
                                             success: true,
                                             message: "Email sended",
@@ -95,4 +97,39 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
             message: "Missing data",
         })
     }
+}
+
+export async function sendEmail(
+    req: NextApiRequest,
+    res: NextApiResponse,
+    token: any,
+    destinataire: string,
+) {
+    let testAccount = await nodemailer.createTestAccount()
+
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+        service: "outlook",
+        auth: {
+            user: "thibault2399@hotmail.fr", // generated ethereal user
+            pass: process.env.PASSWORD, // generated ethereal password
+        },
+    })
+    let infoMail = {
+        from: "thibault2399@hotmail.fr", // sender address
+        to: destinataire, // list of receivers
+        subject: "Reset mot de passe", // Subject line
+        text: "Hello world?", // plain text body
+        html: `Cliquer sur ce lien : <a href='http://localhost:3000/resetpassword?token=${token.token}'>reset password</a>`,
+    }
+
+    transporter.sendMail(infoMail, (err: any) => {
+        if (err) {
+            return console.log(err)
+        } else {
+            console.log(`Success`)
+        }
+    })
+
+    transporter.close()
 }
