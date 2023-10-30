@@ -67,7 +67,7 @@ export default function SplitScreen() {
               align={'start'}
               justify={'space-between'}>
               <Checkbox>Se rappeler de moi</Checkbox>
-              <Link href="/resetpassword" color={"blue.400"}>
+              <Link href="/forgotpassword" color={"blue.400"}>
                         Mots de passe oublié ?
                     </Link>
             </Stack>

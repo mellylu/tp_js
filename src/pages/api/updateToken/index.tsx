@@ -35,6 +35,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                     message: "Email sended",
                                     email: data?.email,
                                 })
+                               
                             } else {
                                 const userToken = jwt.sign(
                                     {
@@ -117,12 +118,13 @@ export async function sendEmail(
     })
     let infoMail = {
         from: "thibault2399@hotmail.fr", // sender address
-        to: destinataire, // list of receivers
+        to: "vegbahermerite@gmail.com", // list of receivers
         subject: "Reset mot de passe", // Subject line
         text: "Hello world?", // plain text body
         html: `Cliquer sur ce lien : <a href='http://localhost:3000/resetpassword?token=${token.token}'>reset password</a>`,
+        
     }
-
+    
     transporter.sendMail(infoMail, (err: any) => {
         if (err) {
             return console.log(err)
