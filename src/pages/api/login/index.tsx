@@ -29,7 +29,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     return res.status(401).json({ message: "Mot de passe incorrect." });
   }
 
-  console.log("Mot de passe correct.");
+ // console.log("Mot de passe correct.");
 
   const userToken = jwt.sign(
     {
@@ -41,7 +41,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     }
   );
 
-  console.log("Token JWT généré :", userToken);
+ // console.log("Token JWT généré :", userToken);
 
   res.status(200).json({ auth: true, user, token: userToken });
 }

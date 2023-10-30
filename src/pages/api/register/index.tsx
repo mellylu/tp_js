@@ -10,7 +10,7 @@ const secret = "secret"
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     req.body.password = await bcrypt.hash(req.body.password, 10)
-    console.log(req.body)
+    console.log("req.body", req.body)
 
     // console.log("usertoken", userToken)
     await prisma.user
