@@ -27,7 +27,7 @@ const Index = (props: {
                         <Input
                             type={showPassword ? "text" : "password"}
                             onChange={props.onChange}
-                            style={{ border: "2px solid black", backgroundColor: "white" }}
+                            style={{ border: "1px solid black", backgroundColor: "white" }}
                         />
                         <InputRightElement h={"full"}>
                             <Button
@@ -43,7 +43,7 @@ const Index = (props: {
                 <FormControl style={{ color: "black" }} id={props.id} isRequired={props.isRequired}>
                     <FormLabel>{props.label}</FormLabel>
                     <Input
-                        style={{ border: "2px solid black", backgroundColor: "white" }}
+                        style={{ border: "1px solid black", backgroundColor: "white" }}
                         type={props.type}
                         onChange={props.onChange}
                     />

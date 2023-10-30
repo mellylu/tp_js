@@ -1,4 +1,4 @@
-import { Box, HStack, Stack, Text, Link } from "@chakra-ui/react"
+import { Box, HStack, Stack, Text, Link, SimpleGrid } from "@chakra-ui/react"
 import { useState } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
@@ -15,21 +15,33 @@ export default function Index() {
     const handleSubmit = async (e: any) => {
         e.preventDefault()
         await axios
-            .post(`http://localhost:3000/api/register`, user)
-            .then(res => {
-                if (res.data.auth) {
-                    toast.success("Inscription enregistrée", {
-                        theme: "light",
-                    })
-                    router.push("/")
+            .post(`http://localhost:3000/api/existEmail`, user)
+            .then(async (data: any) => {
+                if (data.data.auth) {
+                    await axios
+                        .post(`http://localhost:3000/api/register`, user)
+                        .then(res => {
+                            if (res.data.auth) {
+                                toast.success("Inscription enregistrée", {
+                                    theme: "light",
+                                })
+                                router.push("/")
+                            } else {
+                                toast.error("Erreur inscription", {
+                                    theme: "light",
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            toast.error(err.response.data.message, {
+                                theme: "light",
+                            })
+                        })
                 } else {
-                    toast.error("Erreur inscription", {
-                        theme: "light",
-                    })
                 }
             })
             .catch(err => {
-                toast.error("Erreur inscription", {
+                toast.error(err.response.data.message, {
                     theme: "light",
                 })
             })

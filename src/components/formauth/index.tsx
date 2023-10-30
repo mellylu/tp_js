@@ -1,5 +1,5 @@
 import React from "react"
-import { Flex, Box, Stack, Heading, useColorModeValue } from "@chakra-ui/react"
+import { Flex, Box, Stack, Heading, useColorModeValue, SimpleGrid } from "@chakra-ui/react"
 import Image from "next/image"
 import Logo from "../../../public/logo.jpg"
 
@@ -26,7 +26,6 @@ const Index = (props: { title: string; children: any }) => {
                         top: "15%",
                         right: "10%",
                         width: "30%",
-                        height: "100%",
                     }}
                 >
                     <Stack align={"center"}>
@@ -42,9 +41,16 @@ const Index = (props: { title: string; children: any }) => {
                     {props.children}
                 </Box>
             </Stack>
+
             <Flex flex={1}>
                 <Image
-                    style={{ position: "absolute", top: 0, left: 0, width: "50%", height: "100%" }}
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "50%",
+                        height: "100%",
+                    }}
                     alt={"Login Image"}
                     objectFit={"cover"}
                     src={Logo}
