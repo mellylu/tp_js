@@ -36,7 +36,7 @@ export default function Index() {
     }
 
     return (
-        <FormAuth title="S'inscrire">
+        <FormAuth title="S'INSCRIRE">
             <Stack spacing={4}>
                 <HStack>
                     <Box>
@@ -78,7 +78,7 @@ export default function Index() {
                     setUser({ ...user, password: e.target.value })
                 }}
             />
-            <Stack spacing={10} pt={2}>
+            <Stack spacing={10} pt={10}>
                 <Button
                     title="S'inscrire"
                     onClick={(e: any) => {
@@ -87,9 +87,9 @@ export default function Index() {
                 />
             </Stack>
             <Stack pt={6}>
-                <Text align={"center"}>
+                <Text color={"black"} align={"center"}>
                     Vous avez déjà un compte ?{" "}
-                    <Link href="/login" color={"blue.400"}>
+                    <Link href="/login" style={{ textDecoration: "underline" }} color={"black"}>
                         Se connecter
                     </Link>
                 </Text>

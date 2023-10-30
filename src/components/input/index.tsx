@@ -6,6 +6,7 @@ import {
     InputGroup,
     InputRightElement,
     Button,
+    useColorModeValue,
 } from "@chakra-ui/react"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 
@@ -21,11 +22,12 @@ const Index = (props: {
         <>
             {props.id == "password" ? (
                 <FormControl id={props.id} isRequired>
-                    <FormLabel>{props.label}</FormLabel>
+                    <FormLabel style={{ color: "black" }}>{props.label}</FormLabel>
                     <InputGroup>
                         <Input
                             type={showPassword ? "text" : "password"}
                             onChange={props.onChange}
+                            style={{ border: "2px solid black", backgroundColor: "white" }}
                         />
                         <InputRightElement h={"full"}>
                             <Button
@@ -38,9 +40,13 @@ const Index = (props: {
                     </InputGroup>
                 </FormControl>
             ) : (
-                <FormControl id={props.id} isRequired={props.isRequired}>
+                <FormControl style={{ color: "black" }} id={props.id} isRequired={props.isRequired}>
                     <FormLabel>{props.label}</FormLabel>
-                    <Input type={props.type} onChange={props.onChange} />
+                    <Input
+                        style={{ border: "2px solid black", backgroundColor: "white" }}
+                        type={props.type}
+                        onChange={props.onChange}
+                    />
                 </FormControl>
             )}
         </>

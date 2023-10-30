@@ -110,12 +110,12 @@ export default function CaptionCarousel() {
                                 transform="translate(0, -50%)"
                             >
                                 <Heading
-                                    color="#3b250e"
+                                    color="black"
                                     fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
                                 >
                                     Alain Terrieur
                                 </Heading>
-                                <Text fontSize={{ base: "md", lg: "lg" }} color="#1d1207">
+                                <Text fontSize={{ base: "md", lg: "lg" }} color="black">
                                     Vous propose une prestation complète pour mettre en valeur votre
                                     habitation afin de vendre, louer ou simplement vous sentir bien
                                     chez vous
