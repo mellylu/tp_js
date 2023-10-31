@@ -12,20 +12,21 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
     return (
         <Stack>
             <Flex
+                // right={0}
                 w={16}
                 h={16}
                 align={"center"}
                 justify={"center"}
-                color={"#412507"}
+                color={"#3b250e"}
                 rounded={"full"}
                 mb={1}
             >
                 {icon}
             </Flex>
-            <Text color={"#412507"} fontWeight={600}>
+            <Text color={"#3b250e"} fontWeight={600}>
                 {title}
             </Text>
-            <Text style={{ textAlign: "justify" }} color={"#412507"}>
+            <Text style={{ textAlign: "justify" }} color={"#573714"}>
                 {text}
             </Text>
         </Stack>

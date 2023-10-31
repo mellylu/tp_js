@@ -22,14 +22,14 @@ export default function WithSubnavigation() {
     return (
         <Box>
             <Flex
-                bg={useColorModeValue("white", "#3b250e")}
-                color={useColorModeValue("#3b250e", "white")}
+                bg={useColorModeValue("white", "black")}
+                color={useColorModeValue("black", "white")}
                 minH={"60px"}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={1}
                 borderStyle={"solid"}
-                borderColor={useColorModeValue("#3b250e", "#3b250e")}
+                borderColor={useColorModeValue("black", "black")}
                 align={"center"}
             >
                 <Flex
@@ -59,11 +59,11 @@ export default function WithSubnavigation() {
                         fontSize={"sm"}
                         fontWeight={600}
                         color={"white"}
-                        bg={"#3b250e"}
+                        bg={"black"}
                         href={"#"}
-                        _hover={{
-                            bg: "pink.300",
-                        }}
+                        // _hover={{
+                        //     bg: "pink.300",
+                        // }}
                     >
                         Déconnexion
                     </Button>
@@ -78,9 +78,9 @@ export default function WithSubnavigation() {
 }
 
 const DesktopNav = () => {
-    const linkColor = useColorModeValue("#3b250e", "#3b250e")
-    const linkHoverColor = useColorModeValue("#3b250e", "white")
-    const popoverContentBgColor = useColorModeValue("white", "#3b250e")
+    const linkColor = useColorModeValue("black", "black")
+    const linkHoverColor = useColorModeValue("black", "white")
+    const popoverContentBgColor = useColorModeValue("white", "black")
 
     return (
         <Stack direction={"row"} spacing={4}>
@@ -136,13 +136,13 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
             display={"block"}
             p={2}
             rounded={"md"}
-            _hover={{ bg: useColorModeValue("#3b250e", "white") }}
+            _hover={{ bg: useColorModeValue("black", "white") }}
         >
             <Stack direction={"row"} align={"center"}>
                 <Box>
                     <Text
                         transition={"all .3s ease"}
-                        _groupHover={{ color: "#3b250e" }}
+                        _groupHover={{ color: "black" }}
                         fontWeight={500}
                     >
                         {label}
@@ -158,7 +158,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                     align={"center"}
                     flex={1}
                 >
-                    <Icon color={"#3b250e"} w={5} h={5} as={ChevronRightIcon} />
+                    <Icon color={"black"} w={5} h={5} as={ChevronRightIcon} />
                 </Flex>
             </Stack>
         </Box>

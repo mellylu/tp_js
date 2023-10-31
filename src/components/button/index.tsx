@@ -6,10 +6,11 @@ const Index = (props: { onClick: any; title: string }) => {
         <Button
             loadingText="Submitting"
             size="lg"
-            bg={"blue.400"}
+            bg={"black"}
             color={"white"}
             _hover={{
-                bg: "blue.500",
+                bg: "white",
+                color: "black",
             }}
             onClick={props.onClick}
         >
