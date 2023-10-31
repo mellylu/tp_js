@@ -1,26 +1,29 @@
 "use client"
 
-import {
-    Button,
-    Checkbox,
-    Flex,
-    Text,
-    FormControl,
-    FormLabel,
-    Heading,
-    Input,
-    Stack,
-    Image,
-    Link,
-} from "@chakra-ui/react"
+import { Text, Stack, Link, Checkbox } from "@chakra-ui/react"
 import { useState } from "react"
 import { toast } from "react-toastify"
+import FormAuth from "../../components/formauth"
+import Input from "../../components/input"
+import Button from "../../components/button"
+import { useRouter } from "next/router"
 
 export default function SplitScreen() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const router = useRouter()
 
-    const handleLogin = async () => {
+    const creerCookie = (token: any) => {
+        var e = null
+        var date = new Date()
+        date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000)
+        e = "; expires=" + date.toISOString()
+        console.log(e)
+        document.cookie = "token" + "=" + token + e + "; path=/"
+    }
+
+    const handleLogin = async (e: any) => {
+        e.preventDefault()
         try {
             const response = await fetch("/api/login", {
                 method: "POST",
@@ -29,16 +32,20 @@ export default function SplitScreen() {
                 },
                 body: JSON.stringify({ email, password }),
             })
-
+            const data = await response.json()
+            console.log(data)
             if (response.status === 200) {
-                const data = await response.json()
-                const { token } = data
-                toast.success("connexion reussi", {
+                const token = data.token
+                console.log(token)
+                // localStorage.setItem("token", token)
+                // document.cookie = `access_token=${token}
+                creerCookie(token)
+                router.push("/home")
+                toast.success(data.message, {
                     theme: "dark",
                 })
-                // on peut stocker le token dans des cookies au cas ou
             } else {
-                toast.error("Erreur inscription", {
+                toast.error(data.message, {
                     theme: "light",
                 })
             }
@@ -48,59 +55,54 @@ export default function SplitScreen() {
     }
 
     return (
-        <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
-            <Flex p={8} flex={1} align={"center"} justify={"center"}>
-                <Stack spacing={4} w={"full"} maxW={"md"}>
-                    <Heading fontSize={"2xl"}>Veuillez vous connecter</Heading>
-                    <FormControl id="email">
-                        <FormLabel>Adresse Email</FormLabel>
-                        <Input
-                            type="email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl id="password">
-                        <FormLabel>Mots de passe</FormLabel>
-                        <Input
-                            type="password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                    </FormControl>
-                    <Stack spacing={6}>
-                        <Stack
-                            direction={{ base: "column", sm: "row" }}
-                            align={"start"}
-                            justify={"space-between"}
-                        >
-                            <Checkbox>Se rappeler de moi</Checkbox>
-                            <Link href="/resetpassword" color={"blue.400"}>
-                                Mots de passe oublié ?
-                            </Link>
-                        </Stack>
-                        <Stack>
-                            <Text align={"end"}>
-                                <Link href="/register" color={"blue.400"}>
-                                    S'insrire ?
-                                </Link>
-                            </Text>
-                        </Stack>
-                        <Button colorScheme={"blue"} variant={"solid"} onClick={handleLogin}>
-                            Connectez vous
-                        </Button>
-                    </Stack>
+        <FormAuth title="SE CONNECTER">
+            <Input
+                type="text"
+                id="email"
+                label="Email"
+                onChange={(e: any) => setEmail(e.target.value)}
+                // onChange={(e: any) => {
+                //     setUser({ ...user, email: e.target.value })
+                // }}
+            />
+            <Input
+                id="password"
+                label="Mot de passe"
+                onChange={(e: any) => setPassword(e.target.value)}
+                // onChange={(e: any) => {
+                //     setUser({ ...user, password: e.target.value })
+                // }}
+            />
+            <Stack spacing={10}>
+                <Stack
+                    direction={{ base: "column", sm: "row" }}
+                    align={"start"}
+                    justify={"space-between"}
+                >
+                    <Text />
+
+                    <Text color={"black"}>
+                        <Link href="/resetPassword">Mot de passe oublié ?</Link>
+                    </Text>
                 </Stack>
-            </Flex>
-            <Flex flex={1}>
-                <Image
-                    alt={"Login Image"}
-                    objectFit={"cover"}
-                    src={
-                        "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80"
-                    }
+            </Stack>
+            <Stack spacing={10} pt={10}>
+                <Button
+                    title="Se connecter"
+                    onClick={(e: any) => {
+                        handleLogin(e)
+                    }}
                 />
-            </Flex>
-        </Stack>
+            </Stack>
+
+            <Stack pt={6}>
+                <Text color={"black"} align={"center"}>
+                    Vous n'avez pas de compte ?{" "}
+                    <Link href="/register" style={{ textDecoration: "underline" }} color={"black"}>
+                        S'inscrire
+                    </Link>
+                </Text>
+            </Stack>
+        </FormAuth>
     )
 }
