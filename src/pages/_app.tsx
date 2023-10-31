@@ -10,7 +10,6 @@ export default function App({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
             <ToastContainer
                 position="top-right"
-                // toastStyle={{ backgroundColor: "#20232a" }}
                 autoClose={5000}
                 hideProgressBar={false}
                 newestOnTop={false}
