@@ -1,71 +1,100 @@
-"use client"
+'use client'
 
 import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Checkbox,
-    Stack,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-} from "@chakra-ui/react"
+  Button,
+  Checkbox,
+  Flex,
+  Text,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  Image,
+  Link,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+
 
 export default function SimpleCard() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+  
+    const handleLogin = async () => {
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+  
+        if (response.status === 200) {
+          const data = await response.json();
+          const { token } = data;
+          toast.success("connexion reussi", { theme: "dark",}
+        );
+        const router = useRouter();
+             router.push('/home')
+          // on peut stocker le token dans des cookies au cas ou
+        } else {
+            toast.error("Erreur inscription", {
+                theme: "light",
+            })
+        }
+      } catch (error) {
+           console.log(error)
+      }
+    }
+  
     return (
-        <Flex
-            minH={"100vh"}
-            align={"center"}
-            justify={"center"}
-            bg={useColorModeValue("gray.50", "gray.800")}
-        >
-            <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-                <Stack align={"center"}>
-                    {/* <Heading fontSize={'4xl'}>Sign in to your account</Heading> */}
-                    {/* <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool <Text color={'blue.400'}>features</Text> ✌️
-          </Text> */}
-                </Stack>
-                <Box
-                    rounded={"lg"}
-                    bg={useColorModeValue("white", "gray.700")}
-                    boxShadow={"lg"}
-                    p={8}
-                >
-                    <Stack spacing={4}>
-                        <FormControl id="email">
-                            <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
-                        </FormControl>
-                        <FormControl id="password">
-                            <FormLabel>Password</FormLabel>
-                            <Input type="password" />
-                        </FormControl>
-                        <Stack spacing={10}>
-                            <Stack
-                                direction={{ base: "column", sm: "row" }}
-                                align={"start"}
-                                justify={"space-between"}
-                            >
-                                <Checkbox>Remember me</Checkbox>
-                                <Text color={"blue.400"}>Forgot password?</Text>
-                            </Stack>
-                            <Button
-                                bg={"blue.400"}
-                                color={"white"}
-                                _hover={{
-                                    bg: "blue.500",
-                                }}
-                            >
-                                Sign in
-                            </Button>
-                        </Stack>
-                    </Stack>
-                </Box>
+      <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+        <Flex p={8} flex={1} align={'center'} justify={'center'}>
+          <Stack spacing={4} w={'full'} maxW={'md'}>
+            <Heading fontSize={'2xl'}>Veuillez vous connecter</Heading>
+            <FormControl id="email">
+              <FormLabel>Adresse Email</FormLabel>
+              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </FormControl>
+            <FormControl id="password">
+              <FormLabel>Mots de passe</FormLabel>
+              <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </FormControl>
+            <Stack spacing={6}>
+            <Stack
+              direction={{ base: 'column', sm: 'row' }}
+              align={'start'}
+              justify={'space-between'}>
+              <Checkbox>Se rappeler de moi</Checkbox>
+              <Link href="/forgotpassword" color={"blue.400"}>
+                        Mots de passe oublié ?
+                    </Link>
             </Stack>
+            <Stack>
+            <Text align={"end"}>
+                    <Link href="/register" color={"blue.400"}>
+                        S'insrire ?
+                    </Link>
+                </Text>
+            </Stack>
+              <Button colorScheme={'blue'} variant={'solid'} onClick={handleLogin}>
+                Connectez vous
+              </Button>
+            </Stack>
+          </Stack>
         </Flex>
-    )
+      <Flex flex={1}>
+        <Image
+          alt={'Login Image'}
+          objectFit={'cover'}
+          src={
+            'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80'
+          }
+        />
+      </Flex>
+    </Stack>
+  )
 }

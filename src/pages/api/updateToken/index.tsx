@@ -112,13 +112,13 @@ export async function sendEmail(
     let transporter = nodemailer.createTransport({
         service: "outlook",
         auth: {
-            user: "thibault2399@hotmail.fr", // generated ethereal user
+            user: "e.vegba@ecoles-epsi.net", // generated ethereal user
             pass: process.env.PASSWORD, // generated ethereal password
         },
     })
     let infoMail = {
-        from: "thibault2399@hotmail.fr", // sender address
-        to: "vegbahermerite@gmail.com", // list of receivers
+        from: "e.vegba@ecoles-epsi.net", // sender address
+        to: destinataire, // list of receivers
         subject: "Reset mot de passe", // Subject line
         text: "Hello world?", // plain text body
         html: `Cliquer sur ce lien : <a href='http://localhost:3000/resetpassword?token=${token.token}'>reset password</a>`,

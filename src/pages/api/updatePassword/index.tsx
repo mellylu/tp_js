@@ -8,7 +8,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     await prisma.user
         .update({
             where: {
-                id: req.body.id,
+                email: req.body.email,
             },
             data: {
                 password: passwordHashed,
