@@ -110,15 +110,17 @@ export default function CaptionCarousel() {
                                 transform="translate(0, -50%)"
                             >
                                 <Heading
-                                    color="#3b250e"
+                                    color="black"
                                     fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
                                 >
                                     Alain Terrieur
                                 </Heading>
-                                <Text fontSize={{ base: "md", lg: "lg" }} color="#1d1207">
-                                    Vous propose une prestation complète pour mettre en valeur votre
-                                    habitation afin de vendre, louer ou simplement vous sentir bien
-                                    chez vous
+                                <Text fontSize={{ base: "md", lg: "1xl" }} color="#f8f3ec">
+                                    <b>
+                                        Vous propose une prestation complète pour mettre en valeur
+                                        votre habitation afin de vendre, louer ou simplement vous
+                                        sentir bien chez vous
+                                    </b>
                                 </Text>
                             </Stack>
                         </Container>

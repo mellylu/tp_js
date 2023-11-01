@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Button, Flex, FormControl, FormLabel, Heading, Input, Stack ,useColorModeValue} from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { Button, Flex, FormControl, FormLabel, Heading, Input, Stack, useColorModeValue } from "@chakra-ui/react";
+import { useRouter } from "next/router"; 
 
 export default function ResetPasswordForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter(); 
   const handleResetPassword = async () => {
     try {
       const response = await fetch("/api/updatePassword", {
@@ -18,8 +18,8 @@ export default function ResetPasswordForm() {
 
       if (response.ok) {
         alert("Password reset successful.");
-        const router = useRouter();
-             router.push('/login')
+        console.log("Redirecting to /login");
+        router.push('/login'); 
       } else {
         alert("Failed to reset password.");
       }
@@ -71,7 +71,7 @@ export default function ResetPasswordForm() {
             _hover={{
               bg: 'blue.500',
             }}
-            onClick={handleResetPassword} 
+            onClick={handleResetPassword}
           >
             Confirmer
           </Button>
