@@ -1,4 +1,4 @@
-import { Box, HStack, Stack, Text, Link, SimpleGrid } from "@chakra-ui/react"
+import { Box, HStack, Stack, Text, Link } from "@chakra-ui/react"
 import { useState } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"

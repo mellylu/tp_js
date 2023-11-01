@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import { FormControl, Flex, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react"
+import { Stack, Text } from "@chakra-ui/react"
 
 import FormAuth from "../../components/formauth"
 import Input from "../../components/input"
@@ -11,7 +11,6 @@ export default function ForgotPasswordForm() {
     const [message, setMessage] = useState("")
 
     const handleForgotPassword = async () => {
-        console.log(JSON.stringify({ email }))
         try {
             const response = await fetch("/api/updateToken", {
                 method: "POST",
@@ -20,7 +19,6 @@ export default function ForgotPasswordForm() {
                     "Content-Type": "application/json",
                 },
             })
-            console.log(response)
 
             if (response.ok) {
                 setMessage("Email sent for password reset.")
@@ -28,7 +26,6 @@ export default function ForgotPasswordForm() {
                 setMessage("Failed to send email for password reset.")
             }
         } catch (error) {
-            console.error(error)
             setMessage("Network error occurred.")
         }
     }

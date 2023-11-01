@@ -3,7 +3,6 @@ import {
     Flex,
     Text,
     IconButton,
-    Button,
     Stack,
     Collapse,
     Icon,
@@ -91,41 +90,10 @@ export default function WithSubnavigation(props: { username?: string }) {
                             fontFamily: "'Raleway', sans-serif",
                         }}
                         onClick={handleLogout}
-                        // as={"a"}
-                        // display={{ base: "none", md: "inline-flex" }}
-                        // fontSize={"sm"}
-                        // fontWeight={600}
-                        // color={"white"}
-                        // bg={"black"}
-                        // border="2px solid black"
-                        // onClick={handleLogout}
-                        // _hover={{
-                        //     bg: "white",
-                        //     color: "black",
-                        // }}
                     >
                         Déconnexion
                     </button>
                 </Stack>
-
-                {/* <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-                    <Button
-                        as={"a"}
-                        display={{ base: "none", md: "inline-flex" }}
-                        fontSize={"sm"}
-                        fontWeight={600}
-                        color={"white"}
-                        bg={"black"}
-                        border="2px solid black"
-                        onClick={handleLogout}
-                        _hover={{
-                            bg: "white",
-                            color: "black",
-                        }}
-                    >
-                        Déconnexion
-                    </Button>
-                </Stack> */}
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>

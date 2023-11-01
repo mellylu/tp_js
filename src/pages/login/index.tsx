@@ -1,6 +1,4 @@
-"use client"
-
-import { Text, Stack, Link, Checkbox } from "@chakra-ui/react"
+import { Text, Stack, Link } from "@chakra-ui/react"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import FormAuth from "../../components/formauth"
@@ -18,7 +16,6 @@ export default function SplitScreen() {
         var date = new Date()
         date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000)
         e = "; expires=" + date.toISOString()
-        console.log(e)
         document.cookie = "token" + "=" + token + e + "; path=/"
     }
 
@@ -33,26 +30,17 @@ export default function SplitScreen() {
                 body: JSON.stringify({ email, password }),
             })
             const data = await response.json()
-            console.log(data)
             if (response.status === 200) {
                 const token = data.token
-                console.log(token)
-                // localStorage.setItem("token", token)
-                // document.cookie = `access_token=${token}
                 creerCookie(token)
                 router.push("/home")
-                toast.success(data.message, {
-                    // className: "toast-success-container toast-success-container-after",
-                    // theme: "dark",
-                })
+                toast.success(data.message, {})
             } else {
                 toast.error(data.message, {
                     theme: "dark",
                 })
             }
-        } catch (error) {
-            console.log(error)
-        }
+        } catch (error) {}
     }
 
     return (

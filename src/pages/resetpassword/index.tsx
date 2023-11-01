@@ -15,41 +15,30 @@ export default function Index() {
     const [email, setEmail] = useState("melly.lucas32@gmail.com")
     const [password, setPassword] = useState("")
     const router = useRouter()
-    const pathname = usePathname()
-    const searchparams = useSearchParams()
 
     useEffect(() => {
-        console.log(router, "router")
         axios
             .get(`http://localhost:3000/api/resetPassword/` + router.query.token)
             .then((data: any) => {
-                console.log(data.data.data)
                 if (data.data.data !== null) {
-                    console.log("FFFFFFFFF")
                     axios
                         .get(`http://localhost:3000/api/getiduser/` + data.data.data.userId)
                         .then((data: any) => {
-                            console.log(data)
                             if (data.user) {
                                 setEmail(data.content.email)
                             }
                         })
-                        .catch((err: any) => {
-                            console.log(err)
-                        })
-                    console.log(data.userId)
+                        .catch((err: any) => {})
                 } else {
-                    // router.push("/login")
+                    router.push("/login")
                 }
             })
-            .catch(
-                err => {},
-                // router.push("/login")
-            )
+            .catch(err => {
+                router.push("/login")
+            })
     }, [])
 
     const handleResetPassword = async () => {
-        console.log(JSON.stringify({ email, password }))
         try {
             const response = await fetch("/api/updatePassword", {
                 method: "POST",
@@ -58,17 +47,14 @@ export default function Index() {
                     "Content-Type": "application/json",
                 },
             })
-            console.log(response)
             if (response.ok) {
                 toast.success("Mot de passe mis à jour avec succès", {})
-                console.log("Redirecting to /login")
+
                 router.push("/login")
             } else {
                 toast.error("Echec de mise à jour du mot de passe", { theme: "dark" })
             }
-        } catch (error) {
-            console.error(error)
-        }
+        } catch (error) {}
     }
 
     return (

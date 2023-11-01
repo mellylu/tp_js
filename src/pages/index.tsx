@@ -1,4 +1,3 @@
-import SimpleCard from "@/components/auth"
 import Head from "next/head"
 import React, { useEffect } from "react"
 import { useRouter } from "next/router"
@@ -8,7 +7,6 @@ export default function Home(props: any) {
     useEffect(() => {
         router.push("/home")
     }, [])
-    console.log(props)
 
     return (
         <>

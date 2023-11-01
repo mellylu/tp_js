@@ -4,7 +4,6 @@ import type { NextApiRequest, NextApiResponse } from "next"
 const prisma = new PrismaClient()
 
 export default async function existEmail(req: NextApiRequest, res: NextApiResponse) {
-    console.log(req.body)
     await prisma.user
         .findUnique({
             where: {
@@ -16,12 +15,10 @@ export default async function existEmail(req: NextApiRequest, res: NextApiRespon
                 if (data === null) {
                     res.status(200).send({ auth: true })
                 } else {
-                    return res
-                        .status(500)
-                        .send({
-                            auth: false,
-                            message: "Il y a déjà un compte à cette adresse mail",
-                        })
+                    return res.status(500).send({
+                        auth: false,
+                        message: "Il y a déjà un compte à cette adresse mail",
+                    })
                 }
             } else {
                 return res.status(500).send({ auth: false, message: "Adresse mail obligatoire" })
