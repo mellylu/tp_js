@@ -61,17 +61,11 @@ export default function SplitScreen() {
                 id="email"
                 label="Email"
                 onChange={(e: any) => setEmail(e.target.value)}
-                // onChange={(e: any) => {
-                //     setUser({ ...user, email: e.target.value })
-                // }}
             />
             <Input
                 id="password"
                 label="Mot de passe"
                 onChange={(e: any) => setPassword(e.target.value)}
-                // onChange={(e: any) => {
-                //     setUser({ ...user, password: e.target.value })
-                // }}
             />
             <Stack spacing={10}>
                 <Stack

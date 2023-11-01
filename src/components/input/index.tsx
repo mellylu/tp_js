@@ -11,11 +11,13 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 
 const Index = (props: {
-    label: string
+    label?: string
     onChange: any
     type?: any
-    id: any
+    id?: any
     isRequired?: boolean
+    placeholder?: string
+    value?: any
 }) => {
     const [showPassword, setShowPassword] = useState(false)
     return (
@@ -25,6 +27,8 @@ const Index = (props: {
                     <FormLabel style={{ color: "black" }}>{props.label}</FormLabel>
                     <InputGroup>
                         <Input
+                            value={props.value}
+                            placeholder={props.placeholder}
                             type={showPassword ? "text" : "password"}
                             onChange={props.onChange}
                             style={{ border: "1px solid black", backgroundColor: "white" }}
@@ -46,6 +50,8 @@ const Index = (props: {
                         style={{ border: "1px solid black", backgroundColor: "white" }}
                         type={props.type}
                         onChange={props.onChange}
+                        placeholder={props.placeholder}
+                        value={props.value}
                     />
                 </FormControl>
             )}

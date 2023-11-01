@@ -11,6 +11,7 @@ const prisma = new PrismaClient()
 const secret = "secret"
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+    console.log(req.body)
     if (req.body.email) {
         await prisma.user
             .findUnique({
@@ -19,6 +20,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                 },
             })
             .then((data: any) => {
+                console.log("RRRRRRs")
                 if (data) {
                     console.log(data)
                     prisma.token
@@ -35,7 +37,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                     message: "Email sended",
                                     email: data?.email,
                                 })
-                               
                             } else {
                                 const userToken = jwt.sign(
                                     {
@@ -108,23 +109,27 @@ export async function sendEmail(
 ) {
     let testAccount = await nodemailer.createTestAccount()
 
-    // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         service: "outlook",
         auth: {
-            user: "e.vegba@ecoles-epsi.net", // generated ethereal user
-            pass: process.env.PASSWORD, // generated ethereal password
+            //user: "e.vegba@ecoles-epsi.net",
+            // user: "melly.lucas@ecoles-epsi.net",
+            user: "thibault2399@hotmail.fr",
+            pass: process.env.PASSWORD,
         },
     })
     let infoMail = {
-        from: "e.vegba@ecoles-epsi.net", // sender address
-        to: destinataire, // list of receivers
-        subject: "Reset mot de passe", // Subject line
-        text: "Hello world?", // plain text body
+        // from: "e.vegba@ecoles-epsi.net",
+        // from: "melly.lucas@ecoles-epsi.net",
+        from: "thibault2399@hotmail.fr",
+        to: destinataire,
+        // to: req.body.email,
+        subject: "Reset mot de passe",
+        text: "Hello world?",
         html: `Cliquer sur ce lien : <a href='http://localhost:3000/resetpassword?token=${token.token}'>reset password</a>`,
-        
     }
-    
+    console.log(infoMail)
+
     transporter.sendMail(infoMail, (err: any) => {
         if (err) {
             return console.log(err)
