@@ -66,7 +66,9 @@ export default function WithSubnavigation(props: { username?: string }) {
                             fontWeight: 500,
                         }}
                     >
-                        {props.username}
+                        {`Bienvenue ${props.username.charAt(0).toUpperCase()}${props.username.slice(
+                            1,
+                        )}`}
                     </p>
                 ) : (
                     ""

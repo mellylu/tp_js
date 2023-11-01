@@ -53,11 +53,7 @@ const Index = () => {
         <div>
             {visible ? (
                 <div>
-                    <WithSubnavigation
-                        username={
-                            "Bienvenue " + username.charAt(0).toUpperCase() + username.slice(1)
-                        }
-                    />
+                    <WithSubnavigation username={username} />
                     <CaptionCarousel />
                     <SimpleThreeColumns />
                     <SmallCentered />

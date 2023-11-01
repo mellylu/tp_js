@@ -22,7 +22,7 @@ export default function Index() {
                         .then(res => {
                             if (res.data.auth) {
                                 toast.success("Inscription enregistrée", {})
-                                router.push("/")
+                                router.push("/login")
                             } else {
                                 toast.error("Erreur inscription", { theme: "dark" })
                             }

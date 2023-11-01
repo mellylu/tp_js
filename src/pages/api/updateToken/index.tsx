@@ -8,7 +8,6 @@ const nodemailer = require("nodemailer")
 require("dotenv").config()
 
 const prisma = new PrismaClient()
-const secret = "secret"
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     if (req.body.email) {
@@ -39,7 +38,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                     {
                                         hash: randomString.generate(100),
                                     },
-                                    secret,
+                                    process.env.JWT_SECRET,
                                     {
                                         expiresIn: 86400,
                                     },

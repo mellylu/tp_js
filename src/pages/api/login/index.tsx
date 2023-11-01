@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
 const prisma = new PrismaClient()
-const secret = "secret"
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const { email, password } = req.body
@@ -27,7 +26,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         {
             id: user.id,
         },
-        secret,
+        process.env.JWT_SECRET,
         {
             expiresIn: 86400,
         },
