@@ -16,7 +16,7 @@ import {
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import Logo from "../logo"
 
-export default function WithSubnavigation() {
+export default function WithSubnavigation(props: { username?: string }) {
     const { isOpen, onToggle } = useDisclosure()
 
     return (
@@ -45,9 +45,23 @@ export default function WithSubnavigation() {
                     />
                 </Flex>
                 <Logo />
+                {props.username ? (
+                    <p
+                        style={{
+                            marginLeft: "2%",
+                            color: "black",
+                            fontSize: 16,
+                            fontWeight: 500,
+                        }}
+                    >
+                        {props.username}
+                    </p>
+                ) : (
+                    ""
+                )}
 
-                <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Flex display={{ base: "none", md: "flex" }} ml={10}>
+                <Flex id="ppp" flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+                    <Flex display={{ base: "none", md: "flex" }} style={{ margin: "auto" }}>
                         <DesktopNav />
                     </Flex>
                 </Flex>
@@ -60,10 +74,12 @@ export default function WithSubnavigation() {
                         fontWeight={600}
                         color={"white"}
                         bg={"black"}
+                        border="2px solid black"
                         href={"#"}
-                        // _hover={{
-                        //     bg: "pink.300",
-                        // }}
+                        _hover={{
+                            bg: "white",
+                            color: "black",
+                        }}
                     >
                         Déconnexion
                     </Button>
@@ -83,7 +99,7 @@ const DesktopNav = () => {
     const popoverContentBgColor = useColorModeValue("white", "black")
 
     return (
-        <Stack direction={"row"} spacing={4}>
+        <Stack direction={"row"} spacing={20}>
             {NAV_ITEMS.map(navItem => (
                 <Box key={navItem.label}>
                     <Popover trigger={"hover"} placement={"bottom-start"}>
@@ -95,6 +111,7 @@ const DesktopNav = () => {
                                 fontSize={"sm"}
                                 fontWeight={500}
                                 color={linkColor}
+                                margin="auto"
                                 _hover={{
                                     textDecoration: "none",
                                     color: linkHoverColor,

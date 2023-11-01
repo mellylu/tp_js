@@ -100,27 +100,38 @@ export default function CaptionCarousel() {
                         backgroundImage={`url(${card.image})`}
                     >
                         {/* This is the block you need to change, to customize the caption */}
-                        <Container size="container.lg" height="640px" position="relative">
+                        <Container
+                            width="100%"
+                            size="container.lg"
+                            height="640px"
+                            position="relative"
+                        >
                             <Stack
                                 spacing={6}
-                                w={"full"}
-                                maxW={"lg"}
+                                width="100%"
+                                // maxW={"lg"}
                                 position="absolute"
                                 top="50%"
                                 transform="translate(0, -50%)"
+                                // backgroundColor="black"
+                                padding="3%"
+                                borderRadius="5px"
                             >
                                 <Heading
                                     color="black"
                                     fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+                                    textAlign="center"
                                 >
                                     Alain Terrieur
                                 </Heading>
-                                <Text fontSize={{ base: "md", lg: "1xl" }} color="#f8f3ec">
-                                    <b>
-                                        Vous propose une prestation complète pour mettre en valeur
-                                        votre habitation afin de vendre, louer ou simplement vous
-                                        sentir bien chez vous
-                                    </b>
+                                <Text
+                                    textAlign="center"
+                                    fontSize={{ base: "md", lg: "1xl" }}
+                                    color="black"
+                                >
+                                    Vous propose une prestation complète pour mettre en valeur votre
+                                    habitation afin de vendre, louer ou simplement vous sentir bien
+                                    chez vous
                                 </Text>
                             </Stack>
                         </Container>
