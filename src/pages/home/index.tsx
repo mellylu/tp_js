@@ -23,15 +23,16 @@ const Index = () => {
                 token = c.substring(nom.length, c.length)
             }
         }
+
         axios
-            .get("http://localhost:3000/api/verifytoken", {
+            .get(`${process.env.API_URL}/api/verifytoken`, {
                 headers: {
                     Authorization: token,
                 },
             })
             .then(res => {
                 axios
-                    .get("http://localhost:3000/api/getiduser/" + res.data.jwt.id)
+                    .get(`${process.env.API_URL}/api/getiduser/` + res.data.jwt.id)
                     .then(data => {
                         if (data.data.user) {
                             setVisible(true)
