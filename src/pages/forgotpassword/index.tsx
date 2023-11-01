@@ -42,7 +42,7 @@ export default function ForgotPasswordForm() {
                 value={email}
                 onChange={(e: any) => setEmail(e.target.value)}
             />
-            {message && <Text color={message.includes("Error") ? "red" : "green"}>{message}</Text>}
+            {message && <Text color={message.includes("Error") ? "red" : "black"}>{message}</Text>}
 
             <Stack spacing={10} pt={10}>
                 <Button title="Envoyer" onClick={handleForgotPassword} />

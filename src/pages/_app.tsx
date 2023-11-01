@@ -19,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 draggable
                 pauseOnHover
                 theme="colored"
+                toastStyle={{ backgroundColor: "black", color: "white" }}
             />
         </ChakraProvider>
     )

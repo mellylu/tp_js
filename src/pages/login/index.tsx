@@ -42,11 +42,12 @@ export default function SplitScreen() {
                 creerCookie(token)
                 router.push("/home")
                 toast.success(data.message, {
-                    theme: "dark",
+                    // className: "toast-success-container toast-success-container-after",
+                    // theme: "dark",
                 })
             } else {
                 toast.error(data.message, {
-                    theme: "light",
+                    theme: "dark",
                 })
             }
         } catch (error) {

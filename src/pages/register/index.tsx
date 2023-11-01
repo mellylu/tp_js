@@ -21,19 +21,15 @@ export default function Index() {
                         .post(`http://localhost:3000/api/register`, user)
                         .then(res => {
                             if (res.data.auth) {
-                                toast.success("Inscription enregistrée", {
-                                    theme: "light",
-                                })
+                                toast.success("Inscription enregistrée", {})
                                 router.push("/")
                             } else {
-                                toast.error("Erreur inscription", {
-                                    theme: "light",
-                                })
+                                toast.error("Erreur inscription", { theme: "dark" })
                             }
                         })
                         .catch(err => {
                             toast.error(err.response.data.message, {
-                                theme: "light",
+                                theme: "dark",
                             })
                         })
                 } else {

@@ -6,13 +6,12 @@ import CaptionCarousel from "@/components/carrousel"
 import SimpleThreeColumns from "@/components/block"
 import SmallCentered from "@/components/footer"
 import axios from "axios"
-import { toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
 import { useRouter } from "next/router"
 
 const Index = () => {
     const [username, setUsername] = useState("")
     const router = useRouter()
+    const [visible, setVisible] = useState(false)
 
     useEffect(() => {
         let nom = "token"
@@ -40,6 +39,7 @@ const Index = () => {
                     .then(data => {
                         if (data.data.user) {
                             //data.data.content.firstname.charAt(0).toUpperCase()
+                            setVisible(true)
                             setUsername(data.data.content.firstname)
                         } else {
                             router.push("/login")
@@ -58,12 +58,20 @@ const Index = () => {
 
     return (
         <div>
-            <WithSubnavigation
-                username={"Bienvenue " + username.charAt(0).toUpperCase() + username.slice(1)}
-            />
-            <CaptionCarousel />
-            <SimpleThreeColumns />
-            <SmallCentered />
+            {visible ? (
+                <div>
+                    <WithSubnavigation
+                        username={
+                            "Bienvenue " + username.charAt(0).toUpperCase() + username.slice(1)
+                        }
+                    />
+                    <CaptionCarousel />
+                    <SimpleThreeColumns />
+                    <SmallCentered />
+                </div>
+            ) : (
+                ""
+            )}
         </div>
     )
 }

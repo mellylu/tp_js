@@ -60,15 +60,11 @@ export default function Index() {
             })
             console.log(response)
             if (response.ok) {
-                toast.success("Mot de passe mis à jour avec succès", {
-                    theme: "light",
-                })
+                toast.success("Mot de passe mis à jour avec succès", {})
                 console.log("Redirecting to /login")
                 router.push("/login")
             } else {
-                toast.error("Echec de mise à jour du mot de passe", {
-                    theme: "light",
-                })
+                toast.error("Echec de mise à jour du mot de passe", { theme: "dark" })
             }
         } catch (error) {
             console.error(error)

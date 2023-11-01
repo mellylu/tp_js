@@ -109,7 +109,8 @@ export default function CaptionCarousel() {
                             <Stack
                                 spacing={6}
                                 width="100%"
-                                // maxW={"lg"}
+                                maxW={"lg"}
+                                // marginTop={"15%"}
                                 position="absolute"
                                 top="50%"
                                 transform="translate(0, -50%)"
