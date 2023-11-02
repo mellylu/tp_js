@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
+import cors from "cors"
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
@@ -7,7 +8,11 @@ const prisma = new PrismaClient()
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const { email, password } = req.body
+    const headersGetOnly = {
+        "Access-Control-Allow-Origin": "*",
 
+        "Access-Control-Allow-Methods": "OPTIONS, GET, POST, PUT, DELETE",
+    }
     const user = await prisma.user.findUnique({
         where: { email },
     })

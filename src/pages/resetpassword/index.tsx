@@ -18,11 +18,11 @@ export default function Index() {
 
     useEffect(() => {
         axios
-            .get(`${process.env.API_URL}/api/resetPassword/` + router.query.token)
+            .get(`http://localhost:3000/api/resetPassword/` + router.query.token)
             .then((data: any) => {
                 if (data.data.data !== null) {
                     axios
-                        .get(`${process.env.API_URL}/api/getiduser/` + data.data.data.userId)
+                        .get(`http://localhost:3000/api/getiduser/` + data.data.data.userId)
                         .then((data: any) => {
                             if (data.user) {
                                 setEmail(data.content.email)
