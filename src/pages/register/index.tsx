@@ -40,67 +40,24 @@ export default function Index() {
             })
             return
         }
+
         await axios
-            .post(`${window.location.origin}/api/existEmail`, user, {
+            .post(`${window.location.origin}/api/register`, user, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             })
-            .then(async (data: any) => {
-                if (data.data.auth) {
-                    await axios
-                        .post(`${window.location.origin}/api/register`, user, {
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        })
-                        .then(res => {
-                            if (res.data.auth) {
-                                toast.success("Inscription enregistrée", {})
-                                router.push("/login")
-                            } else {
-                                toast.error("Erreur inscription", { theme: "dark" })
-                            }
-                        })
-                        .catch(err => {
-                            toast.error(err.response.data.message, {
-                                theme: "dark",
-                            })
-                        })
+            .then(res => {
+                if (res.data.auth) {
+                    toast.success("Inscription enregistrée", {})
+                    router.push("/login")
                 } else {
+                    toast.error("Erreur inscription", { theme: "dark" })
                 }
             })
             .catch(err => {
                 toast.error(err.response.data.message, {
-                    theme: "light",
-                })
-            })
-        // Continuer avec l'inscription si l'email et le mot de passe sont valides
-        await axios
-            .post(`http://localhost:3000/api/existEmail`, user)
-            .then(async data => {
-                if (data.data.auth) {
-                    await axios
-                        .post(`http://localhost:3000/api/register`, user)
-                        .then(res => {
-                            if (res.data.auth) {
-                                toast.success("Inscription enregistrée", {})
-                                router.push("/login")
-                            } else {
-                                toast.error("Erreur inscription", { theme: "dark" })
-                            }
-                        })
-                        .catch(err => {
-                            toast.error(err.response.data.message, {
-                                theme: "dark",
-                            })
-                        })
-                } else {
-                }
-            })
-            .catch(err => {
-                toast.error(err.response.data.message, {
-                    theme: "light",
+                    theme: "dark",
                 })
             })
     }

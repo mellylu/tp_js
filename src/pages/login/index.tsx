@@ -45,11 +45,10 @@ export default function SplitScreen() {
     }
 
     return (
-
         <FormAuth title="SE CONNECTER">
-             <Head>
+            <Head>
                 <link rel="icon" href="/favic.png" type="image/png" />
-             </Head>
+            </Head>
             <Input
                 type="text"
                 id="email"
