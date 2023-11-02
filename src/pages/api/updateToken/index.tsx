@@ -11,7 +11,6 @@ require("dotenv").config()
 const prisma = new PrismaClient()
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-    console.log(req.body.email)
     if (req.body.email) {
         await prisma.user
             .findUnique({
@@ -29,7 +28,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                         })
                         .then((token: any) => {
                             if (token) {
-                                sendEmail(req, res, token, req.body.email)
+                                sendEmail(req, res, token, req.body.email, req.headers.origin)
                                 res.status(200).send({
                                     success: true,
                                     message: "Email sended",
@@ -54,7 +53,13 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                         data: token,
                                     })
                                     .then((token: any) => {
-                                        sendEmail(req, res, token, req.body.email)
+                                        sendEmail(
+                                            req,
+                                            res,
+                                            token,
+                                            req.body.email,
+                                            req.headers.origin,
+                                        )
                                         res.status(200).send({
                                             success: true,
                                             message: "Email sended",
@@ -118,11 +123,12 @@ export async function sendEmail(
     res: NextApiResponse,
     token: any,
     destinataire: string,
+    url: any,
 ) {
     let testAccount = await nodemailer.createTestAccount()
-
+    // console.log(req)
     let transporter = nodemailer.createTransport({
-        //host: "smtp-mail.outlook.com",
+        host: "smtp-mail.outlook.com",
         port: 465,
         service: "Outlook",
         auth: {
@@ -131,13 +137,12 @@ export async function sendEmail(
         },
         // secure: true,
     })
-
     let infoMail = {
         from: "thibault2399@hotmail.fr",
         to: destinataire,
         subject: "Reset mot de passe",
         text: "Hello world?",
-        html: `Cliquer sur ce lien : <a href='http://localhost:3000/resetpassword?token=${token.token}'>reset password</a>`,
+        html: `Cliquer sur ce lien : <a href='${url}/resetpassword?token=${token.token}'>reset password</a>`,
     }
 
     await transporter.sendMail(infoMail, (err: any) => {
