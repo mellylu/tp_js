@@ -25,8 +25,8 @@ model Token {
 }
 
 model Services {
-  id Int @id @default(autoincrement())
-  heading String
-  icon String
+  id          Int    @id @default(autoincrement())
+  heading     String
+  icon        String
   description String
 }

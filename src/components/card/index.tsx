@@ -49,19 +49,12 @@ const Card = ({ heading, description, icon }: CardProps) => {
   )
 }
 
-export default function GridListWith({services}) {
-
-let test = [{
-    heading: 'ceci est un test',
-    icon: 'https://cdn-icons-png.flaticon.com/256/69/69886.png',
-    description: 'voici la description'
-}]
-
+export default function GridListWith(props: { services?: any }) {
   return (
     <Box p={4}>
       <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
         <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
-          Short heading
+          Présentation de nos services
         </Heading>
         <Text color={'gray.600'} fontSize={{ base: 'sm', sm: 'lg' }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis obcaecati ut
@@ -71,36 +64,12 @@ let test = [{
 
       <Container maxW={'5xl'} mt={12}>
         <Flex flexWrap="wrap" gridGap={6} justify="center">
+          {props.services.map((service: any)=> 
           <Card
-            heading={'Heading'}
-            icon={<Icon as={FcAssistant} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-          />
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcCollaboration} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-          />
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcDonate} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-          />
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcManager} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-          />
-          <Card
-            heading={'Heading'}
-            icon={<Icon as={FcAbout} w={10} h={10} />}
-            description={'Lorem ipsum dolor sit amet catetur, adipisicing elit.'}
-          />
-          {test.map ((tes)=> 
-          <Card
-            heading={tes.heading}
-            icon={<Image src={tes.icon} boxSize="100px" objectFit="cover" m="auto" />}
-            description={tes.description}
+            key={service.id}
+            heading={service.heading}
+            icon={<Image src={service.icon} boxSize="100px" objectFit="cover" m="auto" />}
+            description={service.description}
           />)}
         </Flex>
       </Container>

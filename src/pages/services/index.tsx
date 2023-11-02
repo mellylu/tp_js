@@ -24,6 +24,15 @@ const index = () => {
             }
         }
 
+        let request = 0
+
+        function requests() {
+            request += 1
+            if (request >= 2) {
+                setVisible(true)
+            }
+        }
+
         axios
             .get(`${window.location.origin}/api/verifytoken`, {
                 headers: {
@@ -35,7 +44,7 @@ const index = () => {
                     .get(`${window.location.origin}/api/getiduser/` + res.data.jwt.id)
                     .then(data => {
                         if (data.data.user) {
-                            setVisible(true)
+                            requests()
                             setUsername(data.data.content.firstname)
                         } else {
                             router.push("/login")
@@ -49,32 +58,17 @@ const index = () => {
                 router.push("/login")
             })
 
-            /* 
+            
             axios
-            .get(`${window.location.origin}/api/verifytoken`, {
-                headers: {
-                    Authorization: token,
-                },
-            })
+            .get(`${window.location.origin}/api/getServices`)
             .then(res => {
-                axios
-                    .get(`${window.location.origin}/api/getiduser/` + res.data.jwt.id)
-                    .then(data => {
-                        if (data.data.user) {
-                            setVisible(true)
-                            setUsername(data.data.content.firstname)
-                        } else {
-                            router.push("/login")
-                        }
-                    })
-                    .catch((err: any) => {
-                        router.push("/login")
-                    })
+                requests()
+                setServices(res.data.data)
             })
             .catch(error => {
                 router.push("/login")
             })
-             */
+            
     }, [])
 
     return (
