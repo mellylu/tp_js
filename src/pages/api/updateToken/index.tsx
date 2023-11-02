@@ -29,7 +29,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                         })
                         .then((token: any) => {
                             if (token) {
-                                console.log("ttttt")
                                 sendEmail(req, res, token, req.body.email)
                                 res.status(200).send({
                                     success: true,
@@ -37,7 +36,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                     email: data?.email,
                                 })
                             } else {
-                                console.log("pppppppppp")
                                 const userToken = jwt.sign(
                                     {
                                         hash: randomString.generate(100),
@@ -138,7 +136,7 @@ export async function sendEmail(
         to: destinataire,
         subject: "Reset mot de passe",
         text: "Hello world?",
-        html: `Cliquer sur ce lien : `, //<a href=''`${url}'>reset password</a>`,
+        html: `Cliquer sur ce lien : <a href='http://localhost:3000/resetpassword?token=${token.token}'>reset password</a>`,
     }
 
     await transporter.sendMail(infoMail, (err: any) => {

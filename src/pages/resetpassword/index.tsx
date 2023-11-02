@@ -12,21 +12,23 @@ import { useSearchParams } from "next/navigation"
 import { usePathname } from "next/navigation"
 
 export default function Index() {
-    const [email, setEmail] = useState("melly.lucas32@gmail.com")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [passwordError, setPasswordError] = useState("");
+    const [passwordError, setPasswordError] = useState("")
     const router = useRouter()
 
     useEffect(() => {
+        const url = window.location.search.split("=")[1]
         axios
-            .get(`${window.location.origin}/api/resetPassword/` + router.query.token)
+            .get(`${window.location.origin}/api/resetPassword/` + url)
             .then((data: any) => {
                 if (data.data.data !== null) {
                     axios
                         .get(`${window.location.origin}/api/getiduser/` + data.data.data.userId)
                         .then((data: any) => {
-                            if (data.user) {
-                                setEmail(data.content.email)
+                            console.log(data, "data")
+                            if (data.data.content) {
+                                setEmail(data.data.content.email)
                             }
                         })
                         .catch((err: any) => {})
@@ -41,11 +43,15 @@ export default function Index() {
 
     const handleResetPassword = async () => {
         if (password.length < 8) {
-            setPasswordError("Le mot de passe doit comporter au moins 8 caractères");
-            return;
-          } else {
-            setPasswordError("");
-          }
+            // setPasswordError("Le mot de passe doit comporter au moins 8 caractères")
+            toast.error("Le mot de passe doit comporter au moins 8 caractères", {
+                theme: "dark",
+            })
+            return
+        } else {
+            setPasswordError("")
+        }
+        console.log(JSON.stringify({ email, password }))
         try {
             const response = await fetch(`${window.location.origin}/api/updatePassword`, {
                 method: "POST",
