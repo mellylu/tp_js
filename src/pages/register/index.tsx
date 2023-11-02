@@ -64,9 +64,6 @@ export default function Index() {
 
     return (
         <FormAuth title="S'INSCRIRE">
-            <Head>
-                <link rel="icon" href="/favic.png" type="image/png" />
-            </Head>
             <Stack spacing={4}>
                 <HStack>
                     <Box>

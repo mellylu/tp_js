@@ -7,9 +7,7 @@ import Button from "../../components/button"
 import axios from "axios"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import { useSearchParams } from "next/navigation"
-
-import { usePathname } from "next/navigation"
+import Head from "next/head"
 
 export default function Index() {
     const [email, setEmail] = useState("")
@@ -26,7 +24,6 @@ export default function Index() {
                     axios
                         .get(`${window.location.origin}/api/getiduser/` + data.data.data.userId)
                         .then((data: any) => {
-                            console.log(data, "data")
                             if (data.data.content) {
                                 setEmail(data.data.content.email)
                             }

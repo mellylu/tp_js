@@ -5,6 +5,7 @@ import { Stack, Text } from "@chakra-ui/react"
 import FormAuth from "../../components/formauth"
 import Input from "../../components/input"
 import Button from "../../components/button"
+import Head from "next/head"
 
 export default function ForgotPasswordForm() {
     const [email, setEmail] = useState("")
