@@ -123,7 +123,7 @@ export async function sendEmail(
 
     let transporter = nodemailer.createTransport({
         host: "smtp-mail.outlook.com",
-        port: 465,
+        port: 587,
         service: "Outlook",
         auth: {
             user: "thibault2399@hotmail.fr",
