@@ -20,8 +20,9 @@ export default function ForgotPasswordForm() {
                     "Content-Type": "application/json",
                 },
             })
+            console.log(response)
 
-            if (response.ok) {
+            if (response.status == 200) {
                 setMessage("Email envoyé")
             } else {
                 setMessage("Echec de l'envoie de mail")

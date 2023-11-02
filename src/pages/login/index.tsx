@@ -34,8 +34,8 @@ export default function SplitScreen() {
             if (response.status === 200) {
                 const token = data.token
                 creerCookie(token)
+                toast.success("Vous êtes connectés", {})
                 router.push("/home")
-                toast.success(data.message, {})
             } else {
                 toast.error(data.message, {
                     theme: "dark",

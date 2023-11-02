@@ -74,6 +74,7 @@ export default function Index() {
                 value={password}
                 onChange={(e: any) => setPassword(e.target.value)}
                 type="password"
+                id="password"
             />
 
             <Stack spacing={10} pt={10}>
