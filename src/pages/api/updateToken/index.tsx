@@ -121,19 +121,17 @@ export async function sendEmail(
 ) {
     let testAccount = await nodemailer.createTestAccount()
 
-    // console.log(window.location.origin, "url")
-    // let url = `${window.location.origin}/resetpassword?token=${token.token}`
-
     let transporter = nodemailer.createTransport({
-        host: "smtp.outllook.com",
-        port: 587,
-        service: "outlook",
+        host: "smtp-mail.outlook.com",
+        port: 465,
+        service: "Outlook",
         auth: {
             user: "thibault2399@hotmail.fr",
             pass: process.env.PASSWORD,
         },
         // secure: true,
     })
+
     let infoMail = {
         from: "thibault2399@hotmail.fr",
         to: destinataire,
