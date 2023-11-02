@@ -9,6 +9,7 @@ import axios from "axios"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 const Index = () => {
     const [username, setUsername] = useState("")
@@ -58,6 +59,9 @@ const Index = () => {
 
     return (
         <div>
+             <Head>
+                <link rel="icon" href="/favic.png" type="image/png" />
+             </Head>
             <WithSubnavigation
                 username={"Bienvenue " + username.charAt(0).toUpperCase() + username.slice(1)}
             />
