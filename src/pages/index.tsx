@@ -2,6 +2,8 @@ import Head from "next/head"
 import React, { useEffect } from "react"
 import { useRouter } from "next/router"
 
+<link rel="icon" href="/logo.png" type="image/png" />
+
 export default function Home(props: any) {
     const router = useRouter()
     useEffect(() => {

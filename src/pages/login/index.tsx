@@ -5,6 +5,7 @@ import FormAuth from "../../components/formauth"
 import Input from "../../components/input"
 import Button from "../../components/button"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 export default function SplitScreen() {
     const [email, setEmail] = useState("")
@@ -44,7 +45,11 @@ export default function SplitScreen() {
     }
 
     return (
+
         <FormAuth title="SE CONNECTER">
+             <Head>
+                <link rel="icon" href="/favic.png" type="image/png" />
+             </Head>
             <Input
                 type="text"
                 id="email"

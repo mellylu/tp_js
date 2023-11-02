@@ -7,12 +7,39 @@ import Input from "../../components/input"
 import Button from "../../components/button"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import Head from "next/head"
 
 export default function Index() {
     const router = useRouter()
-    const [user, setUser] = useState<Object>({})
+    const [user, setUser] = useState({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+    })
+
+    const validateEmail = (email: string) => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+        return emailRegex.test(email)
+    }
+
+    const validatePassword = (password: string | any[]) => {
+        return password.length >= 8
+    }
+
     const handleSubmit = async (e: any) => {
         e.preventDefault()
+        if (!validateEmail(user.email)) {
+            toast.error("Format d'email invalide", { theme: "dark" })
+            return
+        }
+
+        if (!validatePassword(user.password)) {
+            toast.error("Le mot de passe doit avoir au moins 8 caractères", {
+                theme: "dark",
+            })
+            return
+        }
         await axios
             .post(`${window.location.origin}/api/existEmail`, user, {
                 headers: {
@@ -48,10 +75,41 @@ export default function Index() {
                     theme: "light",
                 })
             })
+        // Continuer avec l'inscription si l'email et le mot de passe sont valides
+        await axios
+            .post(`http://localhost:3000/api/existEmail`, user)
+            .then(async data => {
+                if (data.data.auth) {
+                    await axios
+                        .post(`http://localhost:3000/api/register`, user)
+                        .then(res => {
+                            if (res.data.auth) {
+                                toast.success("Inscription enregistrée", {})
+                                router.push("/login")
+                            } else {
+                                toast.error("Erreur inscription", { theme: "dark" })
+                            }
+                        })
+                        .catch(err => {
+                            toast.error(err.response.data.message, {
+                                theme: "dark",
+                            })
+                        })
+                } else {
+                }
+            })
+            .catch(err => {
+                toast.error(err.response.data.message, {
+                    theme: "light",
+                })
+            })
     }
 
     return (
         <FormAuth title="S'INSCRIRE">
+            <Head>
+                <link rel="icon" href="/favic.png" type="image/png" />
+            </Head>
             <Stack spacing={4}>
                 <HStack>
                     <Box>
@@ -59,7 +117,7 @@ export default function Index() {
                             type="text"
                             id="firstName"
                             label="Prénom"
-                            onChange={(e: any) => {
+                            onChange={(e: { target: { value: any } }) => {
                                 setUser({ ...user, firstname: e.target.value })
                             }}
                         />
@@ -69,7 +127,7 @@ export default function Index() {
                             type="text"
                             id="lastName"
                             label="Nom"
-                            onChange={(e: any) => {
+                            onChange={(e: { target: { value: any } }) => {
                                 setUser({ ...user, lastname: e.target.value })
                             }}
                         />
@@ -80,7 +138,7 @@ export default function Index() {
                 type="text"
                 id="email"
                 label="Email"
-                onChange={(e: any) => {
+                onChange={(e: { target: { value: any } }) => {
                     setUser({ ...user, email: e.target.value })
                 }}
                 isRequired
@@ -89,7 +147,8 @@ export default function Index() {
                 id="password"
                 isRequired
                 label="Mot de passe"
-                onChange={(e: any) => {
+                type="password"
+                onChange={(e: { target: { value: any } }) => {
                     setUser({ ...user, password: e.target.value })
                 }}
             />

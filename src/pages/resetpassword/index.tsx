@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation"
 export default function Index() {
     const [email, setEmail] = useState("melly.lucas32@gmail.com")
     const [password, setPassword] = useState("")
+    const [passwordError, setPasswordError] = useState("");
     const router = useRouter()
 
     useEffect(() => {
@@ -39,6 +40,12 @@ export default function Index() {
     }, [])
 
     const handleResetPassword = async () => {
+        if (password.length < 8) {
+            setPasswordError("Le mot de passe doit comporter au moins 8 caractères");
+            return;
+          } else {
+            setPasswordError("");
+          }
         try {
             const response = await fetch(`${window.location.origin}/api/updatePassword`, {
                 method: "POST",
