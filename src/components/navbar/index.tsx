@@ -265,7 +265,7 @@ const NAV_ITEMS: Array<NavItem> = [
     {
         label: "Nos services",
 
-        href: "#",
+        href: "/services",
     },
     {
         label: "A propos",
