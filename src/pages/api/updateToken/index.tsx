@@ -26,9 +26,9 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                 userId: data.id,
                             },
                         })
-                        .then((token: any) => {
+                        .then(async (token: any) => {
                             if (token) {
-                                sendEmail(req, res, token, req.body.email)
+                                await sendEmail(req, res, token, req.body.email)
                                 res.status(200).send({
                                     success: true,
                                     message: "Email sended",
@@ -52,8 +52,8 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                     .create({
                                         data: token,
                                     })
-                                    .then(token => {
-                                        sendEmail(req, res, token, req.body.email)
+                                    .then(async (token: any) => {
+                                        await sendEmail(req, res, token, req.body.email)
                                         res.status(200).send({
                                             success: true,
                                             message: "Email sended",
@@ -124,7 +124,7 @@ export async function sendEmail(
 
     await transporter.sendMail(infoMail, (err: any) => {
         if (err) {
-            return res.status(200).send({ sendEmail: false, message: err })
+            return res.status(500).send({ sendEmail: false, message: err })
         } else {
         }
     })
