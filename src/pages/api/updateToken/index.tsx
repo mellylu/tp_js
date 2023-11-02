@@ -10,6 +10,7 @@ require("dotenv").config()
 const prisma = new PrismaClient()
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+    console.log(req.body.email)
     if (req.body.email) {
         await prisma.user
             .findUnique({
@@ -103,6 +104,9 @@ export async function sendEmail(
 ) {
     let testAccount = await nodemailer.createTestAccount()
 
+    // console.log(window.location.origin, "url")
+    // let url = `${window.location.origin}/resetpassword?token=${token.token}`
+
     let transporter = nodemailer.createTransport({
         service: "outlook",
         auth: {
@@ -115,12 +119,12 @@ export async function sendEmail(
         to: destinataire,
         subject: "Reset mot de passe",
         text: "Hello world?",
-        html: `Cliquer sur ce lien : <a href='${window.location.origin}/resetpassword?token=${token.token}'>reset password</a>`,
+        html: `Cliquer sur ce lien : `, //<a href=''`${url}'>reset password</a>`,
     }
 
     transporter.sendMail(infoMail, (err: any) => {
         if (err) {
-            return console.log(err)
+            return res.status(200).send({ sendEmail: false, message: err })
         } else {
         }
     })
