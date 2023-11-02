@@ -14,11 +14,19 @@ export default function Index() {
     const handleSubmit = async (e: any) => {
         e.preventDefault()
         await axios
-            .post(`${window.location.origin}/api/existEmail`, user)
+            .post(`${window.location.origin}/api/existEmail`, user, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
             .then(async (data: any) => {
                 if (data.data.auth) {
                     await axios
-                        .post(`${window.location.origin}/api/register`, user)
+                        .post(`${window.location.origin}/api/register`, user, {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        })
                         .then(res => {
                             if (res.data.auth) {
                                 toast.success("Inscription enregistrée", {})
