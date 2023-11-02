@@ -122,7 +122,7 @@ export async function sendEmail(
         html: `Cliquer sur ce lien : `, //<a href=''`${url}'>reset password</a>`,
     }
 
-    transporter.sendMail(infoMail, (err: any) => {
+    await transporter.sendMail(infoMail, (err: any) => {
         if (err) {
             return res.status(200).send({ sendEmail: false, message: err })
         } else {
