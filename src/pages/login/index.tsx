@@ -22,7 +22,7 @@ export default function SplitScreen() {
     const handleLogin = async (e: any) => {
         e.preventDefault()
         try {
-            const response = await fetch("/api/login", {
+            const response = await fetch(`${window.location.origin}/api/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
