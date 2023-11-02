@@ -40,7 +40,7 @@ export default function Index() {
 
     const handleResetPassword = async () => {
         try {
-            const response = await fetch("/api/updatePassword", {
+            const response = await fetch(`${window.location.origin}/api/updatePassword`, {
                 method: "POST",
                 body: JSON.stringify({ email, password }),
                 headers: {

@@ -12,7 +12,7 @@ export default function ForgotPasswordForm() {
 
     const handleForgotPassword = async () => {
         try {
-            const response = await fetch("/api/updateToken", {
+            const response = await fetch(`${window.location.origin}/api/updateToken`, {
                 method: "POST",
                 body: JSON.stringify({ email }),
                 headers: {
@@ -23,7 +23,7 @@ export default function ForgotPasswordForm() {
             if (response.ok) {
                 setMessage("Email sent for password reset.")
             } else {
-                setMessage("Failed to send email for password reset.")
+                setMessage("Echec de l'envoie de mail")
             }
         } catch (error) {
             setMessage("Network error occurred.")
