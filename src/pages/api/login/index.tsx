@@ -1,9 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
-import cors from "cors"
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-import NextCors from "nextjs-cors"
 
 const prisma = new PrismaClient()
 
