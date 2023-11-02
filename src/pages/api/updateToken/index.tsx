@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const randomString = require("randomstring")
 const nodemailer = require("nodemailer")
+const postmark = require("postmark")
 require("dotenv").config()
 
 const prisma = new PrismaClient()
@@ -26,15 +27,17 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                 userId: data.id,
                             },
                         })
-                        .then(async (token: any) => {
+                        .then((token: any) => {
                             if (token) {
-                                await sendEmail(req, res, token, req.body.email)
+                                console.log("ttttt")
+                                sendEmail(req, res, token, req.body.email)
                                 res.status(200).send({
                                     success: true,
                                     message: "Email sended",
                                     email: data?.email,
                                 })
                             } else {
+                                console.log("pppppppppp")
                                 const userToken = jwt.sign(
                                     {
                                         hash: randomString.generate(100),
@@ -52,8 +55,8 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                     .create({
                                         data: token,
                                     })
-                                    .then(async (token: any) => {
-                                        await sendEmail(req, res, token, req.body.email)
+                                    .then((token: any) => {
+                                        sendEmail(req, res, token, req.body.email)
                                         res.status(200).send({
                                             success: true,
                                             message: "Email sended",
@@ -96,6 +99,22 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
+// export async function sendEmail(
+//     req: NextApiRequest,
+//     res: NextApiResponse,
+//     token: any,
+//     destinataire: string,
+// ) {
+//     // Send an email:
+//     const client = new postmark.ServerClient("29152891-db52-4fbd-ab97-bcef52529d54")
+
+//     await client.sendEmail({
+//         From: "melly.lucas32@ecoles-epsi.net",
+//         To: "melly.lucas@ecoles-epsi.net",
+//         Subject: "Test",
+//         TextBody: "Hello from Postmark!",
+//     })
+// }
 export async function sendEmail(
     req: NextApiRequest,
     res: NextApiResponse,
