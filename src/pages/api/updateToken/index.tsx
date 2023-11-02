@@ -106,8 +106,6 @@ export async function sendEmail(
     let transporter = nodemailer.createTransport({
         service: "outlook",
         auth: {
-            //user: "e.vegba@ecoles-epsi.net",
-            // user: "melly.lucas@ecoles-epsi.net",
             user: "thibault2399@hotmail.fr",
             pass: process.env.PASSWORD,
         },
@@ -117,7 +115,7 @@ export async function sendEmail(
         to: destinataire,
         subject: "Reset mot de passe",
         text: "Hello world?",
-        html: `Cliquer sur ce lien : <a href='http://localhost:3000/resetpassword?token=${token.token}'>reset password</a>`,
+        html: `Cliquer sur ce lien : <a href='${window.location.origin}/resetpassword?token=${token.token}'>reset password</a>`,
     }
 
     transporter.sendMail(infoMail, (err: any) => {

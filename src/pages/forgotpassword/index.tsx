@@ -21,7 +21,7 @@ export default function ForgotPasswordForm() {
             })
 
             if (response.ok) {
-                setMessage("Email sent for password reset.")
+                setMessage("Email envoyé")
             } else {
                 setMessage("Echec de l'envoie de mail")
             }
