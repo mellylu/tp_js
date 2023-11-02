@@ -1,9 +1,9 @@
-import GridListWith from '@/components/card';
-import SmallCentered from '@/components/footer';
-import WithSubnavigation from '@/components/navbar';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import GridListWith from "@/components/card"
+import SmallCentered from "@/components/footer"
+import WithSubnavigation from "@/components/navbar"
+import axios from "axios"
+import { useRouter } from "next/router"
+import React, { useEffect, useState } from "react"
 
 const index = () => {
     const [username, setUsername] = useState("")
@@ -32,7 +32,7 @@ const index = () => {
                 setVisible(true)
             }
         }
-
+        console.log(token)
         axios
             .get(`${window.location.origin}/api/verifytoken`, {
                 headers: {
@@ -47,19 +47,18 @@ const index = () => {
                             requests()
                             setUsername(data.data.content.firstname)
                         } else {
-                            router.push("/login")
+                            //router.push("/login")
                         }
                     })
                     .catch((err: any) => {
-                        router.push("/login")
+                        //router.push("/login")
                     })
             })
             .catch(error => {
                 router.push("/login")
             })
-
-            
-            axios
+        console.log("JJJJJJJJJJJJJJJJJJ")
+        axios
             .get(`${window.location.origin}/api/getServices`)
             .then(res => {
                 requests()
@@ -68,7 +67,6 @@ const index = () => {
             .catch(error => {
                 router.push("/login")
             })
-            
     }, [])
 
     return (
@@ -84,6 +82,6 @@ const index = () => {
             )}
         </div>
     )
-};
+}
 
-export default index;
+export default index

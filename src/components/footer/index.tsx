@@ -59,7 +59,7 @@ export default function SmallCentered() {
                     <Box as="a" href={"/home"}>
                         Home
                     </Box>
-                    <Box as="a" href={"#"}>
+                    <Box as="a" href={"/services"}>
                         Nos services
                     </Box>
                     <Box as="a" href={"#"}>
