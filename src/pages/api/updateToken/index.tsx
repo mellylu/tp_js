@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
-// import { bcrypt } from "bcryptjs"
+
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const randomString = require("randomstring")
@@ -8,7 +8,6 @@ const nodemailer = require("nodemailer")
 require("dotenv").config()
 
 const prisma = new PrismaClient()
-const secret = "secret"
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     if (req.body.email) {
@@ -20,7 +19,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
             })
             .then((data: any) => {
                 if (data) {
-                    console.log(data)
                     prisma.token
                         .findUnique({
                             where: {
@@ -35,13 +33,12 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                     message: "Email sended",
                                     email: data?.email,
                                 })
-                               
                             } else {
                                 const userToken = jwt.sign(
                                     {
                                         hash: randomString.generate(100),
                                     },
-                                    secret,
+                                    process.env.JWT_SECRET,
                                     {
                                         expiresIn: 86400,
                                     },
@@ -50,7 +47,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                     userId: data?.id,
                                     token: userToken,
                                 }
-                                console.log("token", token)
                                 prisma.token
                                     .create({
                                         data: token,
@@ -73,7 +69,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                             }
                         })
                         .catch((err: any) => {
-                            console.log(err)
                             res.status(401).send({
                                 success: false,
                                 message: "Eepp",
@@ -108,28 +103,27 @@ export async function sendEmail(
 ) {
     let testAccount = await nodemailer.createTestAccount()
 
-    // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         service: "outlook",
         auth: {
-            user: "e.vegba@ecoles-epsi.net", // generated ethereal user
-            pass: process.env.PASSWORD, // generated ethereal password
+            //user: "e.vegba@ecoles-epsi.net",
+            // user: "melly.lucas@ecoles-epsi.net",
+            user: "thibault2399@hotmail.fr",
+            pass: process.env.PASSWORD,
         },
     })
     let infoMail = {
-        from: "e.vegba@ecoles-epsi.net", // sender address
-        to: destinataire, // list of receivers
-        subject: "Reset mot de passe", // Subject line
-        text: "Hello world?", // plain text body
+        from: "thibault2399@hotmail.fr",
+        to: destinataire,
+        subject: "Reset mot de passe",
+        text: "Hello world?",
         html: `Cliquer sur ce lien : <a href='http://localhost:3000/resetpassword?token=${token.token}'>reset password</a>`,
-        
     }
-    
+
     transporter.sendMail(infoMail, (err: any) => {
         if (err) {
             return console.log(err)
         } else {
-            console.log(`Success`)
         }
     })
 

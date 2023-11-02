@@ -119,11 +119,11 @@ body {
         /* padding: 5px; */
     }
 }
-/* @media screen and (max-width: 700px) {
-    #boxform {
-        visibility: hidden;
-    }
-} */
+
+#buttonhome:hover {
+    background-color: white;
+    color: black;
+}
 
 a {
     color: inherit;
@@ -134,4 +134,28 @@ a {
     html {
         color-scheme: dark;
     }
+}
+
+.toast-success-container {
+    color: #000 !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    border: 1px solid #90ab16 !important;
+    box-shadow: 0px 1px 5px rgba(248, 175, 175, 0.1) !important;
+}
+
+.toast-success-container-after {
+    overflow: hidden;
+    position: relative;
+}
+
+.toast-success-container-after::after {
+    top: 0;
+    left: 0;
+    content: "";
+    width: 7px;
+    height: 100%;
+    position: absolute;
+    display: inline-block;
+    background-color: #c7d33c;
 }

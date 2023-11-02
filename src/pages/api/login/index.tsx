@@ -1,48 +1,51 @@
 import { PrismaClient } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
+import cors from "cors"
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+import NextCors from "nextjs-cors"
 
 const prisma = new PrismaClient()
-const secret = "secret"
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const { email, password } = req.body
-   console.log(req.body)
+    const headersGetOnly = {
+        "Access-Control-Allow-Origin": "*",
 
-    //console.log(" requete de connexion lancé par :", email);
+        "Access-Control-Allow-Methods": "OPTIONS, GET, POST, PUT, DELETE",
+    }
+    // await NextCors(req, res, {
+    //     // Options
+    //     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    //     origin: "*",
+    //     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    // })
 
+    // // Rest of the API logic
+    // res.json({ message: "Hello NextJs Cors!" })
     const user = await prisma.user.findUnique({
         where: { email },
     })
 
     if (!user) {
-        console.log("L'utilisateur n'existe pas.")
         return res.status(401).json({ message: "L'utilisateur n'existe pas." })
     }
-
-    //console.log("Utilisateur :", user);
 
     const passwordMatch = await bcrypt.compare(password, user.password)
 
     if (!passwordMatch) {
-        console.log("Mot de passe incorrect.")
         return res.status(401).json({ message: "Mot de passe incorrect." })
     }
-
-    // console.log("Mot de passe correct.");
 
     const userToken = jwt.sign(
         {
             id: user.id,
         },
-        secret,
+        process.env.JWT_SECRET,
         {
-            expiresIn: 86400, // durée de validité du token
+            expiresIn: 86400,
         },
     )
-
-    // console.log("Token JWT généré :", userToken);
 
     res.status(200).json({ auth: true, user, token: userToken })
 }

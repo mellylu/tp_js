@@ -3,7 +3,6 @@ import {
     Flex,
     Text,
     IconButton,
-    Button,
     Stack,
     Collapse,
     Icon,
@@ -15,21 +14,21 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import Logo from "../logo"
-import router, { useRouter } from "next/router";
+import router, { useRouter } from "next/router"
 
 export default function WithSubnavigation(props: { username?: string }) {
     const { isOpen, onToggle } = useDisclosure()
-    const router = useRouter();
+    const router = useRouter()
     const handleLogout = async () => {
         try {
-          const response = await fetch('/api/deconnexion');
-          if (response.ok) {
-            router.push('/login');
-          }
+            const response = await fetch("/api/deconnexion")
+            if (response.ok) {
+                router.push("/login")
+            }
         } catch (error) {
-          console.error(error);
+            console.error(error)
         }
-      };
+    }
 
     return (
         <Box>
@@ -57,6 +56,7 @@ export default function WithSubnavigation(props: { username?: string }) {
                     />
                 </Flex>
                 <Logo />
+
                 {props.username ? (
                     <p
                         style={{
@@ -66,7 +66,9 @@ export default function WithSubnavigation(props: { username?: string }) {
                             fontWeight: 500,
                         }}
                     >
-                        {props.username}
+                        {`Bienvenue ${props.username.charAt(0).toUpperCase()}${props.username.slice(
+                            1,
+                        )}`}
                     </p>
                 ) : (
                     ""
@@ -77,24 +79,22 @@ export default function WithSubnavigation(props: { username?: string }) {
                         <DesktopNav />
                     </Flex>
                 </Flex>
-
                 <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-                    <Button
-                        as={"a"}
-                        display={{ base: "none", md: "inline-flex" }}
-                        fontSize={"sm"}
-                        fontWeight={600}
-                        color={"white"}
-                        bg={"black"}
-                        border="2px solid black"
-                        onClick={handleLogout}
-                        _hover={{
-                            bg: "white",
-                            color: "black",
+                    <button
+                        id="buttonhome"
+                        style={{
+                            border: "2px solid black",
+                            borderRadius: "5px",
+                            padding: "5%",
+                            color: "white",
+                            backgroundColor: "black",
+                            fontSize: "13px",
+                            fontFamily: "'Raleway', sans-serif",
                         }}
+                        onClick={handleLogout}
                     >
                         Déconnexion
-                    </Button>
+                    </button>
                 </Stack>
             </Flex>
 

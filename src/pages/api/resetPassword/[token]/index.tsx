@@ -3,11 +3,11 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+export default async function GET(req: NextApiRequest, res: NextApiResponse) {
     await prisma.token
         .findUnique({
             where: {
-                token: req.body.token,
+                token: req.query.token?.toString(),
             },
         })
         .then((data: any) => {

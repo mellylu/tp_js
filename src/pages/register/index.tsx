@@ -1,4 +1,4 @@
-import { Box, HStack, Stack, Text, Link, SimpleGrid } from "@chakra-ui/react"
+import { Box, HStack, Stack, Text, Link } from "@chakra-ui/react"
 import { useState } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
@@ -22,19 +22,15 @@ export default function Index() {
                         .post(`http://localhost:3000/api/register`, user)
                         .then(res => {
                             if (res.data.auth) {
-                                toast.success("Inscription enregistrée", {
-                                    theme: "light",
-                                })
-                                router.push("/")
+                                toast.success("Inscription enregistrée", {})
+                                router.push("/login")
                             } else {
-                                toast.error("Erreur inscription", {
-                                    theme: "light",
-                                })
+                                toast.error("Erreur inscription", { theme: "dark" })
                             }
                         })
                         .catch(err => {
                             toast.error(err.response.data.message, {
-                                theme: "light",
+                                theme: "dark",
                             })
                         })
                 } else {

@@ -8,12 +8,9 @@ import {
     Text,
     Container,
 } from "@chakra-ui/react"
-// Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi"
-// And react-slick as our Carousel Lib
 import Slider from "react-slick"
 
-// Settings for the slider
 const settings = {
     dots: true,
     arrows: false,
@@ -46,7 +43,6 @@ export default function CaptionCarousel() {
 
     return (
         <Box position={"relative"} width={"full"} overflow={"visible"}>
-            {/* CSS files for react-slick */}
             <link
                 rel="stylesheet"
                 type="text/css"
@@ -57,7 +53,6 @@ export default function CaptionCarousel() {
                 type="text/css"
                 href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
             />
-            {/* Left Icon */}
             <IconButton
                 aria-label="left-arrow"
                 variant="ghost"
@@ -72,7 +67,6 @@ export default function CaptionCarousel() {
             >
                 <BiLeftArrowAlt size="40px" />
             </IconButton>
-            {/* Right Icon */}
             <IconButton
                 aria-label="right-arrow"
                 variant="ghost"
@@ -99,7 +93,6 @@ export default function CaptionCarousel() {
                         backgroundSize="cover"
                         backgroundImage={`url(${card.image})`}
                     >
-                        {/* This is the block you need to change, to customize the caption */}
                         <Container
                             width="100%"
                             size="container.lg"
@@ -109,7 +102,8 @@ export default function CaptionCarousel() {
                             <Stack
                                 spacing={6}
                                 width="100%"
-                                // maxW={"lg"}
+                                maxW={"lg"}
+                                // marginTop={"15%"}
                                 position="absolute"
                                 top="50%"
                                 transform="translate(0, -50%)"
