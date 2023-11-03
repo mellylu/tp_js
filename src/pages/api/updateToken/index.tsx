@@ -256,11 +256,7 @@ export const sendEmail = async (
     })
 
     const mailData = {
-        from: {
-            name: `Corentin Clero`,
-            address: "myEmail@gmail.com",
-        },
-        replyTo: destinataire,
+        from: "melly.lucas32@gmail.com",
         to: destinataire,
         subject: `form message`,
         text: "Hello world?",
