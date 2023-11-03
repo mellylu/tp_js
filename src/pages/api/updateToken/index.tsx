@@ -29,10 +29,11 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                         })
                         .then(async (token: any) => {
                             if (token) {
-                                await sendEmail(req, res, token, req.body.email, req.headers.origin)
+                                // await sendEmail(req, res, token, req.body.email, req.headers.origin)
                                 res.status(200).send({
                                     success: true,
-                                    message: "Email sended",
+                                    // message: "Email sended",
+                                    token: token,
                                     email: data?.email,
                                 })
                             } else {
@@ -54,16 +55,16 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                         data: token,
                                     })
                                     .then((token: any) => {
-                                        sendEmail(
-                                            req,
-                                            res,
-                                            token,
-                                            req.body.email,
-                                            req.headers.origin,
-                                        )
+                                        //sendEmail(
+                                        //     req,
+                                        //     res,
+                                        //     token,
+                                        //     req.body.email,
+                                        //     req.headers.origin,
+                                        // )
                                         res.status(200).send({
                                             success: true,
-                                            message: "Email sended",
+                                            // message: "Email sended",
                                             email: data?.email,
                                             token: token,
                                         })

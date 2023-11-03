@@ -7,9 +7,9 @@ const resend = new Resend("re_d3krzAaU_48Jqhtntgrms9Hkmcysfq5pP")
 
 const prisma = new PrismaClient()
 
-export default async function sendEmail(req: NextApiRequest, res: NextApiResponse, token: any) {
+export default async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
     console.log("============== Email init ===============")
-
+    // console.log(req.body)
     const transporter = nodemailer.createTransport({
         port: 465,
         host: "smtp.gmail.com",
@@ -40,7 +40,7 @@ export default async function sendEmail(req: NextApiRequest, res: NextApiRespons
 
     const mailData = {
         from: "melly.lucas32@gmail.com",
-        to: "melly.lucas32@yahoo.fr",
+        to: req.body.email,
         subject: `form message`,
         text: "Hello world?",
         html: "Cliquer sur ce lien",
