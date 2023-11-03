@@ -118,39 +118,91 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 //         TextBody: "Hello from Postmark!",
 //     })
 // }
-export async function sendEmail(
+// export async function sendEmail(
+//     req: NextApiRequest,
+//     res: NextApiResponse,
+//     token: any,
+//     destinataire: string,
+//     url: any,
+// ) {
+//     let testAccount = await nodemailer.createTestAccount()
+//     // console.log(req)
+
+//     let transporter = nodemailer.createTransport({
+//         host: "smtp.gmail.com", // hostname
+//         secureConnection: false, // TLS requires secureConnection to be false
+//         port: 587, // port for secure SMTP
+//         auth: {
+//             user: "melly.lucas32@gmail.com",
+//             pass: "Moustache988",
+//         },
+//         tls: {
+//             ciphers: "SSLv3",
+//         },
+//         // host: "smtp-mail.outlook.com",
+//         // port: 587,
+//         // service: "Outlook",
+//         // auth: {
+//         //     user: "thibault2399@hotmail.fr",
+//         //     pass: process.env.PASSWORD,
+//         // },
+//         // secure: true,
+//     })
+//     let infoMail = {
+//         from: "thibault2399@hotmail.fr",
+//         to: destinataire,
+//         subject: "Reset mot de passe",
+//         text: "Hello world?",
+//         html: `Cliquer sur ce lien : <a href='${url}/resetpassword?token=${token.token}'>reset password</a>`,
+//     }
+
+//     await transporter.sendMail(infoMail, (err: any) => {
+//         if (err) {
+//             return res.status(500).send({ sendEmail: false, message: err })
+//         } else {
+//         }
+//     })
+
+//     transporter.close()
+// }
+
+export const sendEmail = async (
     req: NextApiRequest,
     res: NextApiResponse,
     token: any,
     destinataire: string,
     url: any,
-) {
-    let testAccount = await nodemailer.createTestAccount()
-    // console.log(req)
-    let transporter = nodemailer.createTransport({
-        host: "smtp-mail.outlook.com",
+) => {
+    console.log("============== Email init ===============")
+
+    const CONNECT_NODEMAILER = {
+        user: "melly.lucas32@gmail.com",
+        pass: process.env.PASSWORD,
+        host: "smtp.gmail.com",
         port: 465,
-        service: "Outlook",
+        secure: true,
+    }
+
+    let transporter = nodemailer.createTransport({
+        host: CONNECT_NODEMAILER.host,
+        port: CONNECT_NODEMAILER.port,
+        secure: CONNECT_NODEMAILER.secure, // true for 465, false for other ports
         auth: {
-            user: "thibault2399@hotmail.fr",
-            pass: process.env.PASSWORD,
+            user: CONNECT_NODEMAILER.user, // generated ethereal user
+            pass: CONNECT_NODEMAILER.pass, // generated ethereal password
         },
-        // secure: true,
     })
-    let infoMail = {
-        from: "thibault2399@hotmail.fr",
-        to: destinataire,
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+        from: "melly.lucas32@gmail.com", // sender address
+        to: destinataire, // list of receivers
         subject: "Reset mot de passe",
         text: "Hello world?",
         html: `Cliquer sur ce lien : <a href='${url}/resetpassword?token=${token.token}'>reset password</a>`,
-    }
-
-    await transporter.sendMail(infoMail, (err: any) => {
-        if (err) {
-            return res.status(500).send({ sendEmail: false, message: err })
-        } else {
-        }
     })
 
-    transporter.close()
+    console.log("============== Email envoyés ===============")
+
+    return true
 }
