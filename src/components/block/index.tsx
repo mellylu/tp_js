@@ -39,7 +39,7 @@ export default function SimpleThreeColumns() {
             style={{ marginLeft: "10%", marginRight: "10%", marginTop: "4%", marginBottom: "6%" }}
             p={4}
         >
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={20}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
                 <Feature
                     icon={<Icon as={AiFillCheckCircle} w={10} h={10} />}
                     title={"Certification validée"}
