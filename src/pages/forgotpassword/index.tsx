@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 
 import { Stack, Text } from "@chakra-ui/react"
+import { toast } from "react-toastify"
 
 import FormAuth from "../../components/formauth"
 import Input from "../../components/input"
@@ -32,13 +33,22 @@ export default function ForgotPasswordForm() {
                         .post(`${window.location.origin}/api/testnodemailer`, { email, token, url })
                         .then(data => {
                             console.log(data)
+                            toast.success("Votre email de réinitialisation est envoyé", {})
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => {
+                            console.log(err),
+                                toast.error("Email non envoyé", {
+                                    theme: "dark",
+                                })
+                        })
                 }
                 console.log(res)
             })
             .catch(err => {
                 console.log(err)
+                toast.error("Cet email n'éxiste pas", {
+                    theme: "dark",
+                })
             })
         // try {
         //     const response = await fetch(`${window.location.origin}/api/updateToken`, {

@@ -106,9 +106,10 @@ export default function CaptionCarousel() {
                                 // marginTop={"15%"}
                                 position="absolute"
                                 top="50%"
-                                transform="translate(0, -50%)"
+                                left="50%"
+                                transform="translate(-50%, -50%)"
                                 // backgroundColor="black"
-                                padding="3%"
+                                padding={{ base: "5%", md: "3%" }}
                                 borderRadius="5px"
                             >
                                 <Heading

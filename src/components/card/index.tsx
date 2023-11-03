@@ -57,20 +57,19 @@ export default function GridListWith(props: { services?: any }) {
           Présentation de nos services
         </Heading>
         <Text color={'gray.600'} fontSize={{ base: 'sm', sm: 'lg' }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis obcaecati ut
-          cupiditate pariatur, dignissimos, placeat amet officiis.
+          En tant qu'architecte d'intérieur, je façonne et sublime vos espaces, alliant esthétisme et fonctionnalité, pour créer des intérieurs qui reflètent votre identité et répondent à vos aspirations.
         </Text>
       </Stack>
 
       <Container maxW={'5xl'} mt={12}>
         <Flex flexWrap="wrap" gridGap={6} justify="center">
-          {props.services.map((service: any)=> 
-          <Card
-            key={service.id}
-            heading={service.heading}
-            icon={<Image src={service.icon} boxSize="100px" objectFit="cover" m="auto" />}
-            description={service.description}
-          />)}
+          {props.services.map((service: any) =>
+            <Card
+              key={service.id}
+              heading={service.heading}
+              icon={<Image src={service.icon} boxSize="100px" objectFit="cover" m="auto" />}
+              description={service.description}
+            />)}
         </Flex>
       </Container>
     </Box>

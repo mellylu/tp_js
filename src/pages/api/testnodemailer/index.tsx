@@ -41,9 +41,19 @@ export default async function sendEmail(req: NextApiRequest, res: NextApiRespons
     const mailData = {
         from: "melly.lucas32@gmail.com",
         to: req.body.email,
-        subject: `form message`,
+        subject: `Email de réinitialisation de Alain Terrieur`,
         text: "Hello world?",
-        html: `Cliquer sur ce lien : <a href='${req.body.url}/resetpassword?token=${req.body.token}'>reset password</a>`,
+        html: `
+                <div style="font-family: Arial, sans-serif;">
+                    <p>Bonjour,</p>
+                    <p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien ci-dessous :</p>
+                    <p><a href='${req.body.url}/resetpassword?token=${req.body.token}'>Réinitialiser le mot de passe</a></p>
+                    <p>Cordialement,</p>
+                    <p>L'équipe Alain Terrieur</p>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRliUbaqpq6O6XkWRrJFx1uCctSB6ImpARfYA&usqp=CAU" alt="Logo Alain Terrieur" style="width: 150px;">
+                </div>
+            `
+
     }
 
     await new Promise((resolve, reject) => {
