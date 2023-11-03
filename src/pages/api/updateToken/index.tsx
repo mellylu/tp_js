@@ -255,6 +255,7 @@ export const sendEmail = async (
         })
     })
     console.log(destinataire)
+    console.log(url)
 
     const mailData = {
         from: "melly.lucas32@gmail.com",
