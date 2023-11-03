@@ -15,59 +15,65 @@ export default function ForgotPasswordForm() {
 
     const handleForgotPassword = async (e: any) => {
         e.preventDefault()
-        console.log(`${window.location.origin}/api/uptadeToken`)
-        console.log(JSON.stringify({ email }))
         await axios
-            .post(`${window.location.origin}/api/updateToken`, JSON.stringify({ email }), {
+            .post(`${window.location.origin}/api/existEmail`, JSON.stringify({ email }), {
                 headers: {
                     "Content-Type": "application/json",
                 },
             })
-            .then(res => {
-                if (res.data.success) {
-                    let token: any = res.data.token.token
-                    let url: any = window.location.origin
-                    // let body = {}
-                    // console.log(JSON.stringify({ email }))
-                    axios
-                        .post(`${window.location.origin}/api/testnodemailer`, { email, token, url })
-                        .then(data => {
-                            console.log(data)
-                            toast.success("Votre email de réinitialisation est envoyé", {})
+            .then(async data => {
+                if (data.data.auth) {
+                    toast.error("L'adresse mail n'existe pas", {
+                        theme: "dark",
+                    })
+                } else {
+                    await axios
+                        .post(
+                            `${window.location.origin}/api/updateToken`,
+                            JSON.stringify({ email }),
+                            {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                            },
+                        )
+                        .then(res => {
+                            if (res.data.success) {
+                                let token: any = res.data.token.token
+                                let url: any = window.location.origin
+                                // let body = {}
+                                // console.log(JSON.stringify({ email }))
+                                axios
+                                    .post(`${window.location.origin}/api/testnodemailer`, {
+                                        email,
+                                        token,
+                                        url,
+                                    })
+                                    .then(data => {
+                                        console.log(data)
+                                        toast.success(
+                                            "Votre email de réinitialisation est envoyé",
+                                            {},
+                                        )
+                                    })
+                                    .catch(err => {
+                                        console.log(err),
+                                            toast.error("Email non envoyé", {
+                                                theme: "dark",
+                                            })
+                                    })
+                            }
+                            console.log(res)
                         })
                         .catch(err => {
-                            console.log(err),
-                                toast.error("Email non envoyé", {
-                                    theme: "dark",
-                                })
+                            console.log(err)
+                            toast.error("Erreur de la base de données", {
+                                theme: "dark",
+                            })
                         })
                 }
-                console.log(res)
             })
-            .catch(err => {
-                console.log(err)
-                toast.error("Cet email n'éxiste pas", {
-                    theme: "dark",
-                })
-            })
-        // try {
-        //     const response = await fetch(`${window.location.origin}/api/updateToken`, {
-        //         method: "POST",
-        //         body: JSON.stringify({ email }),
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //     })
-        //     console.log(response)
-
-        //     if (response.status == 200) {
-        //         setMessage("Email envoyé")
-        //     } else {
-        //         setMessage("Echec de l'envoie de mail")
-        //     }
-        // } catch (error) {
-        //     setMessage("Network error occurred.")
-        // }
+            .catch(err => console.log(err))
     }
 
     return (

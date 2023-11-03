@@ -40,23 +40,38 @@ export default function Index() {
             })
             return
         }
-
         await axios
-            .post(`${window.location.origin}/api/register`, user, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-            .then(res => {
-                if (res.data.auth) {
-                    toast.success("Inscription enregistrée", {})
-                    router.push("/login")
+            .post(`${window.location.origin}/api/existEmail`, user, {})
+            .then(async data => {
+                console.log(data)
+                if (data.data.auth) {
+                    await axios
+                        .post(`${window.location.origin}/api/register`, user, {
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        })
+                        .then(res => {
+                            if (res.data.auth) {
+                                toast.success("Inscription enregistrée", {})
+                                router.push("/login")
+                            } else {
+                                toast.error("Erreur inscription", { theme: "dark" })
+                            }
+                        })
+                        .catch(err => {
+                            toast.error("Erreur base de données", {
+                                theme: "dark",
+                            })
+                        })
                 } else {
-                    toast.error("Erreur inscription", { theme: "dark" })
+                    toast.error(data.data.message, {
+                        theme: "dark",
+                    })
                 }
             })
             .catch(err => {
-                toast.error(err.response.data.message, {
+                toast.error("Erreur base de données", {
                     theme: "dark",
                 })
             })

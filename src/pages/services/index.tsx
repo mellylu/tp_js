@@ -32,7 +32,6 @@ const index = () => {
                 setVisible(true)
             }
         }
-        console.log(token)
         axios
             .get(`${window.location.origin}/api/verifytoken`, {
                 headers: {
@@ -47,17 +46,16 @@ const index = () => {
                             requests()
                             setUsername(data.data.content.firstname)
                         } else {
-                            //router.push("/login")
+                            router.push("/login")
                         }
                     })
                     .catch((err: any) => {
-                        //router.push("/login")
+                        router.push("/login")
                     })
             })
             .catch(error => {
                 router.push("/login")
             })
-        console.log("JJJJJJJJJJJJJJJJJJ")
         axios
             .get(`${window.location.origin}/api/getServices`)
             .then(res => {

@@ -36,7 +36,7 @@ const Feature = ({ title, text, icon }: FeatureProps) => {
 export default function SimpleThreeColumns() {
     return (
         <Box
-            style={{ marginLeft: "10%", marginRight: "10%", marginTop: "5%", marginBottom: "5%" }}
+            style={{ marginLeft: "10%", marginRight: "10%", marginTop: "4%", marginBottom: "6%" }}
             p={4}
         >
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={20}>
