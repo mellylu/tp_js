@@ -6,7 +6,9 @@ const jwt = require("jsonwebtoken")
 const randomString = require("randomstring")
 const nodemailer = require("nodemailer")
 const postmark = require("postmark")
+const { Resend } = require("resend")
 require("dotenv").config()
+const resend = new Resend("re_d3krzAaU_48Jqhtntgrms9Hkmcysfq5pP")
 
 const prisma = new PrismaClient()
 
@@ -166,6 +168,8 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 //     transporter.close()
 // }
 
+//
+
 export const sendEmail = async (
     req: NextApiRequest,
     res: NextApiResponse,
@@ -174,33 +178,41 @@ export const sendEmail = async (
     url: any,
 ) => {
     console.log("============== Email init ===============")
-
-    const CONNECT_NODEMAILER = {
-        user: "melly.lucas32@gmail.com",
-        pass: process.env.PASSWORD,
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-    }
-
-    let transporter = nodemailer.createTransport({
-        host: CONNECT_NODEMAILER.host,
-        port: CONNECT_NODEMAILER.port,
-        secure: CONNECT_NODEMAILER.secure, // true for 465, false for other ports
-        auth: {
-            user: CONNECT_NODEMAILER.user, // generated ethereal user
-            pass: CONNECT_NODEMAILER.pass, // generated ethereal password
-        },
-    })
-
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-        from: "melly.lucas32@gmail.com", // sender address
+    console.log(destinataire)
+    await resend.emails.send({
+        from: "melly.lucas32@yahoo.fr", // sender address
         to: destinataire, // list of receivers
         subject: "Reset mot de passe",
         text: "Hello world?",
         html: `Cliquer sur ce lien : <a href='${url}/resetpassword?token=${token.token}'>reset password</a>`,
     })
+
+    // const CONNECT_NODEMAILER = {
+    //     user: "melly.lucas32@gmail.com",
+    //     pass: process.env.PASSWORD,
+    //     host: "smtp.gmail.com",
+    //     port: 465,
+    //     secure: true,
+    // }
+
+    // let transporter = nodemailer.createTransport({
+    //     host: CONNECT_NODEMAILER.host,
+    //     port: CONNECT_NODEMAILER.port,
+    //     secure: CONNECT_NODEMAILER.secure, // true for 465, false for other ports
+    //     auth: {
+    //         user: CONNECT_NODEMAILER.user, // generated ethereal user
+    //         pass: CONNECT_NODEMAILER.pass, // generated ethereal password
+    //     },
+    // })
+
+    // // send mail with defined transport object
+    // let info = await transporter.sendMail({
+    //     from: "melly.lucas32@gmail.com", // sender address
+    //     to: destinataire, // list of receivers
+    //     subject: "Reset mot de passe",
+    //     text: "Hello world?",
+    //     html: `Cliquer sur ce lien : <a href='${url}/resetpassword?token=${token.token}'>reset password</a>`,
+    // })
 
     console.log("============== Email envoyés ===============")
 
