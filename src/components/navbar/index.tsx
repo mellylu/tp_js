@@ -14,7 +14,8 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import Logo from "../logo"
-import router, { useRouter } from "next/router"
+import { useRouter } from "next/router"
+import { AiOutlineLogin } from "react-icons/ai"
 
 export default function WithSubnavigation(props: { username?: string }) {
     const { isOpen, onToggle } = useDisclosure()
@@ -95,6 +96,9 @@ export default function WithSubnavigation(props: { username?: string }) {
                         onClick={handleLogout}
                     >
                         Déconnexion
+                    </button>
+                    <button id="buttonicon">
+                        <AiOutlineLogin color={"black"} size={30} />
                     </button>
                 </Stack>
             </Flex>

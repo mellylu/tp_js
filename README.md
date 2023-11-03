@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -16,25 +14,18 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Groupe : Lux VEGBA, Corentin CLERO, Melly LUCAS
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Ce que le projet fait :
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+    - S'inscrire : vérification du format email/mot de passe et si l'utilisateur possède déjà un compte
+    - Se connecter : génère un token et création d'un cookie contenant le token
+    - Mot de passe oublié : une fois l'adresse mail inscrite (vérification si l'email existe), l'utilisateur reçoit un mail avec un nouveau token dans l'url. Cliquer sur le lien "Réinitialiser le mot de passe"
+    - Modification du mot de passe : le token est vérifier sinon redirection et l'utilisateur peut entrer son nouveau mot de passe (format mot de passe obligatoire)
+    - Home : vérification du token dans les cookies sinon redirection et affichage de la page d'accueil du site
+    - Service : vérification du token dans les cookies sinon redirection et affiche des services présent dans la base de données
+    - Bouton déconnexion : suppression du cookie
+    - Gestion des messages de réussite et d'erreur
+    - Responsive
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Prise en main pour les utilisateurs : il est nécessaire de se créer un compte pour accèder au site internet Alain Terrieur
