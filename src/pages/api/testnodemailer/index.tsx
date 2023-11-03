@@ -9,7 +9,7 @@ const prisma = new PrismaClient()
 
 export default async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
     console.log("============== Email init ===============")
-    // console.log(req.body)
+    console.log(req.body)
     const transporter = nodemailer.createTransport({
         port: 465,
         host: "smtp.gmail.com",
@@ -43,7 +43,7 @@ export default async function sendEmail(req: NextApiRequest, res: NextApiRespons
         to: req.body.email,
         subject: `form message`,
         text: "Hello world?",
-        html: "Cliquer sur ce lien",
+        html: `Cliquer sur ce lien : <a href='${req.body.url}/resetpassword?token=${req.body.token}'>reset password</a>`,
     }
 
     await new Promise((resolve, reject) => {

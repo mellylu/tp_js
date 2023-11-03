@@ -24,11 +24,12 @@ export default function ForgotPasswordForm() {
             })
             .then(res => {
                 if (res.data.success) {
-                    // let token: any = res.data.token.token
+                    let token: any = res.data.token.token
+                    let url: any = window.location.origin
                     // let body = {}
                     // console.log(JSON.stringify({ email }))
                     axios
-                        .post(`${window.location.origin}/api/testnodemailer`, { email })
+                        .post(`${window.location.origin}/api/testnodemailer`, { email, token, url })
                         .then(data => {
                             console.log(data)
                         })
