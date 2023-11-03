@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const randomString = require("randomstring")
 const nodemailer = require("nodemailer")
-const postmark = require("postmark")
 const { Resend } = require("resend")
 require("dotenv").config()
 const resend = new Resend("re_d3krzAaU_48Jqhtntgrms9Hkmcysfq5pP")
@@ -170,7 +169,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 
 //
 
-export const sendEmail = async (
+/* export const sendEmail = async (
     req: NextApiRequest,
     res: NextApiResponse,
     token: any,
@@ -217,4 +216,70 @@ export const sendEmail = async (
     console.log("============== Email envoyés ===============")
 
     return true
-}
+} */
+
+
+export const sendEmail = async (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    token: any,
+    destinataire: string,
+    url: any,
+) => {
+    console.log("============== Email init ===============")
+
+const transporter = nodemailer.createTransport({
+    port: 465,
+    host: "smtp.gmail.com",
+    auth: {
+        user: "corentindu77220@gmail.com",
+        pass: process.env.PASSWORD,
+    },
+    secure: true,
+    tls: {
+        rejectUnauthorized: false
+    }
+});
+
+await new Promise((resolve, reject) => {
+    // verify connection configuration
+    transporter.verify(function (error:any, success:any) {
+        if (error) {
+            console.log(error);
+            reject(error);
+        } else {
+            console.log("Server is ready to take our messages");
+            resolve(success);
+        }
+    });
+});
+
+const mailData = {
+    from: {
+        name: `Corentin Clero`,
+        address: "myEmail@gmail.com",
+    },
+    replyTo: destinataire,
+    to: destinataire,
+    subject: `form message`,
+    text: "Hello world?",
+    html: `Cliquer sur ce lien : <a href='${url}/resetpassword?token=${token.token}'>reset password</a>`,
+};
+
+await new Promise((resolve, reject) => {
+    // send mail
+    transporter.sendMail(mailData, (err:any, info:any) => {
+        if (err) {
+            console.error(err);
+            reject(err);
+        } else {
+            console.log(info);
+            resolve(info);
+        }
+    });
+});
+
+res.status(200).json({ status: "OK" });
+
+console.log("============== Email envoyés ===============")
+};
