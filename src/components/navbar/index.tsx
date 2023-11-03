@@ -97,7 +97,7 @@ export default function WithSubnavigation(props: { username?: string }) {
                     >
                         Déconnexion
                     </button>
-                    <button id="buttonicon">
+                    <button id="buttonicon" onClick={handleLogout}>
                         <AiOutlineLogin color={"black"} size={30} />
                     </button>
                 </Stack>
