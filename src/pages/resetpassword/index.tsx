@@ -7,7 +7,6 @@ import Button from "../../components/button"
 import axios from "axios"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import Head from "next/head"
 
 export default function Index() {
     const [email, setEmail] = useState("")
@@ -40,7 +39,6 @@ export default function Index() {
 
     const handleResetPassword = async () => {
         if (password.length < 8) {
-            // setPasswordError("Le mot de passe doit comporter au moins 8 caractères")
             toast.error("Le mot de passe doit comporter au moins 8 caractères", {
                 theme: "dark",
             })
@@ -48,7 +46,6 @@ export default function Index() {
         } else {
             setPasswordError("")
         }
-        console.log(JSON.stringify({ email, password }))
         try {
             const response = await fetch(`${window.location.origin}/api/updatePassword`, {
                 method: "POST",

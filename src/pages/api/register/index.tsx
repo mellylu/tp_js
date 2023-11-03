@@ -26,26 +26,3 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
             return res.status(500).send({ auth: false, message: "Erreur base de données" })
         })
 }
-
-// export function existEmail(req: NextApiRequest, res: NextApiResponse) {
-//     prisma.user
-//         .findUnique({
-//             where: {
-//                 email: req.body.email,
-//             },
-//         })
-//         .then((data: any) => {
-//             if (data === null) {
-//                 res.status(200).send({ auth: true })
-//             } else {
-//                 return res
-//                     .status(500)
-//                     .send({ auth: false, message: "Il y a déjà un compte à cette adresse mail" })
-//             }
-//         })
-//         .catch(() => {
-//             return res
-//                 .status(500)
-//                 .send({ auth: false, message: "Il y a déjà un compte à cette adresse mail" })
-//         })
-// }

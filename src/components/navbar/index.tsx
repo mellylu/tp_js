@@ -26,7 +26,8 @@ export default function WithSubnavigation(props: { username?: string }) {
                 router.push("/login")
             }
         } catch (error) {
-            console.error(error)
+            {
+            }
         }
     }
 

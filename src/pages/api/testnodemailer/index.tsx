@@ -2,33 +2,23 @@ import type { NextApiRequest, NextApiResponse } from "next"
 const nodemailer = require("nodemailer")
 require("dotenv").config()
 
-
 export default async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
-    console.log("============== Email init ===============")
-    console.log(req.body)
     const transporter = nodemailer.createTransport({
         port: 465,
         host: "smtp.gmail.com",
-        // service: "gmail",
         auth: {
             user: "melly.lucas32@gmail.com",
             //user: "corentindu77220@gmail.com",
             pass: process.env.PASSWORD,
         },
         secure: true,
-        // tls: {
-        //     rejectUnauthorized: false,
-        // },
     })
 
     await new Promise((resolve, reject) => {
-        // verify connection configuration
         transporter.verify(function (error: any, success: any) {
             if (error) {
-                console.log(error)
                 reject(error)
             } else {
-                console.log("Server is ready to take our messages")
                 resolve(success)
             }
         })
@@ -48,24 +38,18 @@ export default async function sendEmail(req: NextApiRequest, res: NextApiRespons
                     <p>L'équipe Alain Terrieur</p>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRliUbaqpq6O6XkWRrJFx1uCctSB6ImpARfYA&usqp=CAU" alt="Logo Alain Terrieur" style="width: 150px;">
                 </div>
-            `
-
+            `,
     }
 
     await new Promise((resolve, reject) => {
-        // send mail
         transporter.sendMail(mailData, (err: any, info: any) => {
             if (err) {
-                console.error(err)
                 reject(err)
             } else {
-                console.log(info, "info")
                 resolve(info)
             }
         })
     })
 
     res.status(200).json({ status: "OK" })
-
-    console.log("============== Email envoyés ===============")
 }

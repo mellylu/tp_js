@@ -5,7 +5,6 @@ import SimpleThreeColumns from "@/components/block"
 import SmallCentered from "@/components/footer"
 import axios from "axios"
 import { useRouter } from "next/router"
-import Head from "next/head"
 
 const Index = () => {
     const [username, setUsername] = useState("")

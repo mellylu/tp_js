@@ -3,10 +3,8 @@ import prisma from "../prismaClient"
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
-
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const { email, password } = req.body
-    console.log(req.body)
 
     const user = await prisma.user.findUnique({
         where: { email },

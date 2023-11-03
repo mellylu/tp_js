@@ -3,7 +3,6 @@ import prisma from "../prismaClient"
 
 const jwt = require("jsonwebtoken")
 const randomString = require("randomstring")
-const nodemailer = require("nodemailer")
 require("dotenv").config()
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {

@@ -7,7 +7,6 @@ import Input from "../../components/input"
 import Button from "../../components/button"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import Head from "next/head"
 
 export default function Index() {
     const router = useRouter()
@@ -43,7 +42,6 @@ export default function Index() {
         await axios
             .post(`${window.location.origin}/api/existEmail`, user, {})
             .then(async data => {
-                console.log(data)
                 if (data.data.auth) {
                     await axios
                         .post(`${window.location.origin}/api/register`, user, {
