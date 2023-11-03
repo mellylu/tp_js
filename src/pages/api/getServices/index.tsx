@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
+import prisma from "../prismaClient"
 
-const prisma = new PrismaClient()
 
 export default async function GET_SERVICES(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -13,7 +12,5 @@ export default async function GET_SERVICES(req: NextApiRequest, res: NextApiResp
         res.status(500).send({
             message: err.message || "Some error occurred while fetching services.",
         })
-    } finally {
-        await prisma.$disconnect()
     }
 }

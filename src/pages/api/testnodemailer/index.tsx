@@ -1,11 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
 const nodemailer = require("nodemailer")
-const { Resend } = require("resend")
 require("dotenv").config()
-const resend = new Resend("re_d3krzAaU_48Jqhtntgrms9Hkmcysfq5pP")
 
-const prisma = new PrismaClient()
 
 export default async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
     console.log("============== Email init ===============")
