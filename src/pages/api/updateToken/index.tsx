@@ -230,16 +230,16 @@ export const sendEmail = async (
     const transporter = nodemailer.createTransport({
         port: 465,
         host: "smtp.gmail.com",
-        service: "gmail",
+        // service: "gmail",
         auth: {
             user: "melly.lucas32@gmail.com",
             //user: "corentindu77220@gmail.com",
             pass: process.env.PASSWORD,
         },
         secure: true,
-        tls: {
-            rejectUnauthorized: false,
-        },
+        // tls: {
+        //     rejectUnauthorized: false,
+        // },
     })
 
     await new Promise((resolve, reject) => {
@@ -254,6 +254,7 @@ export const sendEmail = async (
             }
         })
     })
+    console.log(destinataire)
 
     const mailData = {
         from: "melly.lucas32@gmail.com",
@@ -270,7 +271,7 @@ export const sendEmail = async (
                 console.error(err)
                 reject(err)
             } else {
-                console.log(info)
+                console.log(info, "info")
                 resolve(info)
             }
         })
