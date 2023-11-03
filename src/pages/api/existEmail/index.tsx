@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client"
 import type { NextApiRequest, NextApiResponse } from "next"
+import prisma from "../prismaClient"
 
-const prisma = new PrismaClient()
 
 export default async function existEmail(req: NextApiRequest, res: NextApiResponse) {
     await prisma.user

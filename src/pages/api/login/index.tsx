@@ -1,9 +1,8 @@
-import { PrismaClient } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
+import prisma from "../prismaClient"
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
-const prisma = new PrismaClient()
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const { email, password } = req.body

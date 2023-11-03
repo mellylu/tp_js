@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client"
+import prisma from "../prismaClient"
 const bcrypt = require("bcryptjs")
-const prisma = new PrismaClient()
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     let passwordHashed = await bcrypt.hash(req.body.password, 10)
