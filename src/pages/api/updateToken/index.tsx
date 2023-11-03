@@ -27,9 +27,9 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
                                 userId: data.id,
                             },
                         })
-                        .then((token: any) => {
+                        .then(async (token: any) => {
                             if (token) {
-                                sendEmail(req, res, token, req.body.email, req.headers.origin)
+                                await sendEmail(req, res, token, req.body.email, req.headers.origin)
                                 res.status(200).send({
                                     success: true,
                                     message: "Email sended",
